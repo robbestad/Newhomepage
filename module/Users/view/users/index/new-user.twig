@@ -1,0 +1,40 @@
+{% extends "layout/layout.twig" %}
+
+{% block pagecontent %}
+
+<div class="container span12">
+
+    <section class="register">
+        {{ dump(_context) }}
+        <h2>Register</h2>
+        {% if error %}
+        <p class="error">
+            There were one or more issues with your submission.
+            Please correct them as
+            indicated below.
+        </p>
+        {% endif %}
+
+        {{ form().openTag(form)|raw }}
+        {{ formRow(form.get('name'))|raw }}
+        {{ form().closeTag(form)|raw }}
+
+        <!--
+
+        <form action="GET">
+            <input type="hidden" name="controller" value="Register">
+            <input type="hidden" name="action" value="process">
+            <input type="text" name="user">
+
+        </form>
+
+        $form->setAttribute('action', $this->url(NULL,
+        array('controller'=>'Register', 'action' => 'process')));
+        $form->setAttribute('method', 'post');
+        echo $this->form()->openTag($form);
+
+        -->
+</div>
+
+{% endblock %}
+

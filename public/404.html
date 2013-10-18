@@ -1,0 +1,192 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Language" content="en-us" />
+
+<title>Error 404: Page Not Found - zachstronaut</title>
+
+<link rel="stylesheet" href="/css/base.css" type="text/css" media="screen" charset="utf-8" />
+
+<style type="text/css" media="screen">
+html {
+    height: 100%;
+    color: #fff;
+}
+
+body {
+    background: black;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+#sizer {
+    height: 100%;
+    overflow: hidden;
+}
+
+#blackhole {
+    -webkit-transform: skewX(-25deg) skewY(-25deg) translate(-400px, -400px);
+    -moz-transform: skewX(-25deg) skewY(-25deg) translate(-400px, -400px);
+    transform: skewX(-25deg) skewY(-25deg) translate(-400px, -400px);
+}
+
+#content {
+    position: absolute;
+    top: 200px;
+    left: 25%;
+    right: 25%;
+    text-align: left;
+}
+</style>
+
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-192935-6']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+</head>
+<body>
+
+<div id="sizer">
+    <canvas id="blackhole"></canvas>
+</div>
+
+<div id="content">
+    <h1>404 - no data found!</h1>
+</div>
+
+<script type="text/javascript">
+var stars = new Array();
+
+var sizes = new Array(  1,      1,      1,      1,      1,      1,      1,      1,      1,      1,      1,      1,      1,      1,      1,      1,      1,      1,      1,      1,      2,      2,      2,      2,      2);
+var colors = new Array( '#fff', '#fff', '#ff0', '#99f', '#99f', '#fff', '#fff', '#ff0', '#99f', '#99f', '#fff', '#fff', '#ff0', '#99f', '#99f', '#fff', '#fff', '#ff0', '#99f', '#99f', '#fff', '#99f', '#ff0', '#f00', '#f90');
+
+// Number of stars
+var active = 600;
+
+//var speed = 7;
+
+var w;
+var h;
+
+var ctx;
+
+///window.onload = init;
+init();
+
+function init() {
+    var sizer = document.getElementById('sizer');
+    
+    w = 1000;
+    h = 1000;
+    
+    var canvas = document.getElementById('blackhole');
+    
+    canvas.width = w * 1.5;
+    canvas.height = h * 1.5;
+
+    if (canvas.getContext) {
+        ctx = canvas.getContext('2d');
+        
+        // Make the center of the black hole the origin 0,0
+        ctx.translate(Math.floor(sizer.offsetWidth / 2), Math.floor(sizer.offsetHeight / 2));
+        
+        // Initialize stars
+        var clrAndSize;
+        var i;
+        for (i = 0; i < active; i++) {
+            clrAndSize = Math.floor(Math.random() * sizes.length);
+            stars.push({
+                x: Math.round(Math.random() * w - w / 2),
+                y: Math.round(Math.random() * h - h / 2),
+                //xv: Math.round(Math.random() * speed * 2) - speed,
+                //yv: Math.round(Math.random() * speed * 2) - speed,
+                clr: clrAndSize,
+                size: clrAndSize
+            });
+        }
+        
+        // Sadly we can't do much better than 20 FPS without browsers choking on this
+        setInterval('draw()', 50);
+    }
+}
+
+function draw(){
+    // Erase the previously drawn frame with a semi-transparent black "flood fill" for a sweeping effect
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+    ctx.fillRect(-w * 4, -h * 4, w * 8, h * 8);
+    
+    // Spin the entire canvas to make the stars orbit
+    ctx.rotate(0.04);
+
+    // "gravitational" velocities
+    var gxv;
+    var gyv;
+    
+    // Move and draw all stars (i.e. draw the new frame)
+    var i = active;
+    while (i--) {            
+        gxv = 0;
+        gyv = 0;
+        
+        // No bugs here... those are features.
+        
+        
+        // Move stars towards 0,0 evenly by basing x and y velocities off x and y distances from center
+        if (stars[i].x != 0) {
+            gxv = (0 - stars[i].x) / Math.abs(stars[i].y);
+        }
+        
+        if (stars[i].y != 0) {
+            gyv = (0 - stars[i].y) / Math.abs(stars[i].x);
+        }
+        
+        // Use a log relative to the distance a star is from the center to speed stars up as the approach the black hole
+        if (Math.floor(stars[i].x) != 0 || Math.floor(stars[i].y) != 0) {
+            stars[i].x += gxv / (Math.log(Math.abs(gxv)) + 1); // + stars[i].xv;
+            stars[i].y += gyv / (Math.log(Math.abs(gyv)) + 1); // + stars[i].yv;
+        }
+        
+        // A little edge detection fun
+        if (stars[i].x > w) {
+            stars[i].x = -w;
+        } else if (stars[i].x < -w) {
+            stars[i].x = w;
+        }
+
+        if (stars[i].y > h) {
+            stars[i].y = -h;
+        } else if (stars[i].y < -h) {
+            stars[i].y = h;
+        }
+        
+        // Draw this star
+        ctx.fillStyle = colors[stars[i].clr];        
+        ctx.beginPath();
+        ctx.arc(Math.floor(stars[i].x), Math.floor(stars[i].y), sizes[stars[i].size], 0, 2 * Math.PI, true);
+        ctx.fill();
+    }
+    
+    // No light can escape the center of the black hole
+    ctx.fillStyle = '#000';
+    ctx.beginPath();
+    ctx.arc(-10, -10, 20, 0, 2 * Math.PI, true);
+    ctx.fill();
+}
+</script>
+
+</body>
+</html>

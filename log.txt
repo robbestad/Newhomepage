@@ -1,0 +1,14 @@
+latest messages from composer
+wallsmith/assetic suggests installing leafo/lessphp (Assetic provides the integration with the lessphp LESS compiler)
+kriswallsmith/assetic suggests installing leafo/scssphp (Assetic provides the integration with the scssphp SCSS compiler)
+kriswallsmith/assetic suggests installing ptachoire/cssembed (Assetic provides the integration with phpcssembed to embed data uris)
+kriswallsmith/assetic suggests installing leafo/scssphp-compass (Assetic provides the integration with the SCSS compass plugin)
+widmogrod/zf2-assetic-module suggests installing leafo/lessphp (Assetic provides the integration with the lessphp LESS compiler)
+widmogrod/zf2-assetic-module suggests installing leafo/scssphp (Assetic provides the integration with the scssphp SCSS compiler)
+
+zendframework/zendframework suggests installing ocramius/proxy-manager (ProxyManager to handle lazy initialization of services)
+symfony/console suggests installing symfony/event-dispatcher ()
+zendframework/zend-developer-tools suggests installing ocramius/ocra-service-manager (OcraServiceManager can help you track dependencies within your application.)
+phpunit/phpunit suggests installing phpunit/php-invoker (>=1.1.0,<1.2.0)
+webino/zf2nette-debug suggests installing zendframework/ZendDeveloperTools (Module for developer and debug tools for working with the ZF2 MVC layer. )
+webino/zf2nette-debug suggests installing webino/WebinoDraw (XHTML Layout Renderer for Zend Framework)

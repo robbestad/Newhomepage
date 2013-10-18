@@ -1,0 +1,72 @@
+<project name="soltv" default="dist">
+
+    <!-- ============================================  -->
+    <!-- Target: prepare                               -->
+    <!-- ============================================  -->
+    <target name="prepare">
+        <echo msg="Run codesniff fixer" />
+        <exec command="php ./build/php-cs-fixer.phar fix ./module/" 
+	      dir="."
+	      checkreturn="false"
+	      passthru="false" />
+        <echo msg="Run CodeSniffer to verify codestandards" />
+        <exec command="php vendor/squizlabs/php_codesniffer/scripts/phpcs --standard=vendor/soldotno/sol_codestandards/ruleset/codestandard.xml module/" 
+	      dir="."
+	      checkreturn="true"
+	      passthru="true" />
+
+        <echo msg="Running PHPunit (phpunit)" />
+        <exec command="php ../../../vendor/phpunit/phpunit/phpunit.php"
+              dir="./module/Application/test"
+              checkreturn="true"
+              passthru="true" />
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: build                                 -->
+    <!-- ============================================  -->
+    <target name="build" depends="prepare">
+	<echo msg="Successful :)" />    
+    </target>
+
+
+    <!-- ============================================  -->
+    <!-- Target: dist 								   -->
+    <!-- ============================================  -->
+    <target name="dist" depends="build" />
+
+
+    <!-- ============================================  -->
+    <!-- Target: analyze 							   -->
+    <!-- ============================================  -->
+    <target name="analyze" depends="build" >
+        <echo msg="Running CodeSniffer... (phpcs)" />
+        <exec command="php vendor/squizlabs/php_codesniffer/scripts/phpcs --standard=vendor/soldotno/sol_codestandards/ruleset/codestandard.xml module/ > analyze/phpcs.xml" 
+	      dir="."
+	      checkreturn="true"
+	      passthru="true" />
+
+        <echo msg="Running PHP Mess Detector (phpmd)" />
+        <exec command="php vendor/phpmd/phpmd/src/bin/phpmd module/ xml codesize,design,naming,unusedcode > analyze/phpmd.xml"
+	      dir="."
+	      passthru="true" />
+
+        <echo msg="Running PHP Depend (pdepend)" />
+        <exec command="php vendor/pdepend/pdepend/src/bin/pdepend --summary-xml=analyze/pdepend.xml module/"
+              dir="."
+              checkreturn="true"
+              passthru="true" />
+	</target>
+
+    <!-- ============================================  -->
+    <!-- Target: Sonar 								   -->
+    <!-- ============================================  -->
+    <target name="sonar" depends="analyze">
+        <echo msg="Running Sonar" />
+        <exec command="sonar-runner"
+              dir="."
+              checkreturn="true"
+              passthru="true" />
+    </target>
+
+</project>

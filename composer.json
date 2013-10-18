@@ -1,0 +1,41 @@
+{
+    "name": "svenanders/recommendersys",
+    "description": "Recommender sys",
+    "license": "",
+    "minimum-stability": "alpha",
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "2.*",
+        "zf-commons/zfc-base": "0.*",
+        "zf-commons/zfc-user": "dev-master",
+        "socalnick/scn-social-auth": "dev-master",
+        "zf-commons/zfc-twig": "dev-master",
+        "svenanders/codestandards": "dev-master",
+        "doctrine/doctrine-mongo-odm-module": "dev-master",
+        "doctrine/doctrine-orm-module": "0.7.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*",
+        "raveren/kint": "dev-master",
+        "twig/extensions": "1.0.*@dev",
+        "umpirsky/twig-gettext-extractor": "1.1.*",
+        "zendframework/zftool": "dev-master",
+        "doctrine/annotations": "1.0.*@dev",
+        "squizlabs/php_codesniffer": "1.*",
+        "widmogrod/zf2-assetic-module": "1.*",
+        "ocramius/proxy-manager": "dev-master",
+        "zendframework/zendpdf": "2.0.*@dev",
+        "zendframework/zendservice-recaptcha": "2.0.*@dev",
+        "phing/phing": "dev-master",
+        "sebastian/diff": "1.0.*@dev",
+        "ircmaxell/security-lib": "dev-master",
+        "ircmaxell/random-lib": "dev-master",
+        "fabpot/php-cs-fixer": "dev-master",
+        "phpmd/phpmd": "1.4.*",
+        "pdepend/pdepend": "1.1.0",
+        "zendframework/zend-developer-tools": "dev-master",
+        "dlu/dluphpsettings": "dev-master",
+        "webino/zf2nette-debug": "1.*",
+        "bjyoungblood/bjy-profiler": "dev-master"
+    }
+}

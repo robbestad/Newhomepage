@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# To enable this hook, chmod +x
+echo "Ready to commit"
+cd ~/www/soltv/current
+
+function testCmd {
+    "$@"
+    status=$?
+    if [ $status -ne 0 ]; then
+        echo "error with $1"
+    fi
+    return $status
+}
+
+if testCmd phing build
+then
+  echo "Commit is OK"
+else 
+  echo "ERROR: Commit is borked. Sorry pal..."
+  exit 1
+fi
+

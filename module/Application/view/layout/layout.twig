@@ -1,0 +1,130 @@
+{% do headMeta().appendHttpEquiv("Pragma","") %}
+{% do headMeta().appendHttpEquiv("expires","Wed, 26 Feb 1997 08:21:57 GMT") %}
+{{ doctype() }}
+
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    {{ headMeta() }}
+    <title>Flat UI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Loading Bootstrap -->
+    <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Loading Flat UI -->
+    <link href="/css/flat-ui.css" rel="stylesheet">
+
+    <!-- Github widget -->
+    <link href="/css/hubinfo.min.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target="#nav-collapse-02">
+            </button>
+            <a href="/" class="brand">Sven A Robbestad</a>
+            <div class="nav-collapse collapse" id="nav-collapse-02">
+                <form class="navbar-search form-search pull-right" action="">
+                    <div class="input-append">
+                        <input type="text" class="search-query span2" placeholder="Search">
+                        <button type="submit" class="btn btn-large">
+                            <i class="fui-search"></i>
+                        </button>
+                    </div>
+                </form>
+
+                <ul class="nav pull-right">
+                    <li>
+                        <a href="/">
+                            <span class="fui-home"></span><span class="hidden-desktop">Hjem</span>
+                        </a>
+                    </li>
+
+                    <li class="active">
+                        <a href="/contact">
+                            <span class="fui-bubble"></span><span class="hidden-desktop">Kontakt</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/resume">
+                            <span class="fui-document"></span><span class="hidden-desktop">CV</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="http://blog.robbestad.no/#blog">
+                            <span class="fui-book"></span><span class="hidden-desktop">Blogg</span>
+                        </a>
+                    </li>
+
+
+
+                </ul> <!-- /nav -->
+            </div><!--/.nav-collapse -->
+        </div>
+    </div>
+</div> <!-- /navbar -->
+
+<!-- /.container -->
+
+<div class="container-fluid">
+
+
+
+    {% block pagecontent %}
+
+        menu
+
+    {% endblock %}
+
+    {% block footer %}
+
+        <div class="mtl pbl">
+            <div class="bottom-menu bottom-menu-inverse">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="span6 brand">
+                            <a href="/" class="brand">Sven Anders Robbestad</a>
+                        </div>
+
+                        <div class="span6">
+                            Bermingrudveien 41 -
+                            3300 Hokksund -
+                            Norway
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div> <!-- /bottom-menu-inverse -->
+        </div>
+
+    {% endblock %}
+
+    <!-- Load JS here for greater good =============================-->
+    <script src="/js/jquery-1.10.2.js"></script>
+    <script src="/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="/js/jquery.ui.touch-punch.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap-select.js"></script>
+    <script src="/js/bootstrap-switch.js"></script>
+    <script src="/js/flatui-checkbox.js"></script>
+    <script src="/js/flatui-radio.js"></script>
+    <script src="/js/jquery.tagsinput.js"></script>
+    <script src="/js/jquery.placeholder.js"></script>
+    <script src="/js/jquery.stacktable.js"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+composer.phar
+composer.lock
+php_error.log
+data/
+.idea/
+vendor/
