@@ -25,6 +25,8 @@ class Module implements
 {
     public function onBootstrap(MvcEvent $e)
     {
+        session_start();
+
         $e->getApplication()->getServiceManager()->get('translator');
         $e->getApplication()->getServiceManager()->get('viewhelpermanager')->setFactory(
             'controllerName', function($sm) use ($e) {

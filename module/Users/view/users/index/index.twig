@@ -5,7 +5,9 @@
     <div class="container span12">
         <h1>{{ translate("Welcome to Users Module")  }}</h1>
         <a href="/users/index/login">Login</a> | <a href="/users/index/register">New User Registration</a>
-
+        {{ dump(session) }}
     </div>
+
+    <div class="clearfix"></div>
 
 {% endblock %}
