@@ -1,0 +1,25 @@
+{% extends "layout/layout.twig" %}
+
+
+
+
+{% block pagecontent %}
+
+    <div class="container-fluid">
+        <h4>Logg inn</h4>
+        {{ form().openTag(form)|raw }}
+    <div class="span4 "> {{ formRow(form.get('username'))|raw }}   </div>
+    <div class="span4 "> {{ formRow(form.get('password'))|raw }} </div>
+    <div class="span4 "> {{ formSubmit(form.get('submit'))|raw }} </div>
+        {{ form().closeTag(form)|raw }}
+    </div>
+
+
+<div class="container-fluid">
+
+<!-- one liner -->
+{#{ formCollection(form) }#}
+</div>
+
+
+{% endblock %}

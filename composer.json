@@ -8,6 +8,7 @@
         "zendframework/zendframework": "2.*",
         "zf-commons/zfc-base": "0.*",
         "zf-commons/zfc-user": "dev-master",
+        "hybridauth/hybridauth": "dev-master",
         "socalnick/scn-social-auth": "dev-master",
         "zf-commons/zfc-twig": "dev-master",
         "svenanders/codestandards": "dev-master",

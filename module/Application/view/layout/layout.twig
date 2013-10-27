@@ -46,6 +46,21 @@
                 </form>
 
                 <ul class="nav pull-right">
+
+                {% block adminpanel %}
+                    {% if(session.loggedIn is defined and session.loggedIn == true) %}
+                        <li>
+                            <a href="/">
+                                <span class="fui-triangle-up"></span><span class="hidden-desktop">Anders:)</span>
+                            </a>
+                        </li>
+
+                    {% endif %}
+
+
+                {% endblock %}
+
+
                     <li>
                         <a href="/">
                             <span class="fui-home"></span><span class="hidden-desktop">Hjem</span>

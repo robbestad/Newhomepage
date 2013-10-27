@@ -5,6 +5,9 @@
  */
 
 
+session_start();
+$_SESSION["name"]="Anders";
+
 chdir(dirname(__DIR__));
 ini_set("display_errors","On");
 

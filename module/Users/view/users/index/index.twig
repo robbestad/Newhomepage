@@ -6,8 +6,43 @@
         <h1>{{ translate("Welcome to Users Module")  }}</h1>
         <a href="/users/index/login">Login</a> | <a href="/users/index/register">New User Registration</a>
         {{ dump(session) }}
+        <input id = "generate" type = "button" value = "generate one random card as HTML" />
+        <input id = "generateSet" type = "button" value = "generate an assosative array of random cards as JSON" />
+
     </div>
 
     <div class="clearfix"></div>
+    <div id="output"></div>
+    <script src = "js/Faker.js" type = "text/javascript"></script>
+    <script src = "js/prettyprint.js" type = "text/javascript"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function(e){
+
+            var card = Faker.Helpers.createCard();
+            $('#output').html(prettyPrint(card));
+
+            $('#generate').click(function(){
+                var card = Faker.Helpers.createCard();
+                $('#output').html(prettyPrint(card));
+            });
+
+            $('#generateSet').click(function(){
+
+                setTimeout(function(){
+                    var cards = [];
+                    for(var i = 0; i < $('#cardCount').val(); i++){
+                        var card = Faker.Helpers.createCard();
+                        cards.push(card);
+                    }
+                    $('#output').html('<textarea cols = "100" rows = "100">'+JSON.stringify(cards)+'</textarea>');
+                }, 10);
+
+            });
+
+        });
+    </script>
+
+
 
 {% endblock %}
