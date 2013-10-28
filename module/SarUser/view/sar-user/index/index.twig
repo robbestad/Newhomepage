@@ -1,0 +1,132 @@
+{% extends "layout/layout.twig" %}
+
+
+{% block adminpanel %}
+    {% if(session.name == "Anders") %}
+        <li>
+            <a href="/">
+                <span class="fui-home"></span><span class="hidden-desktop">Anders:)</span>
+            </a>
+        </li>
+
+    {% endif %}
+{% endblock %}
+
+
+
+{% block pagecontent %}
+
+    <div class="container span12">
+    <div class="span4 well"><b>Session:</b><br/>{{ dump(session) }}</div>
+    <div class="span3 well"><b>Pass:</b><br/>{{ dump(pass) }}</div>
+    <div class="span8 well"><b>Hash:</b><br/>{{ dump(hash) }}</div>
+    <div class="span8 well"><b>Verification:</b><br/>{{ dump(verification) }}</div>
+    <div class="span8 well"><input id = "generate" type = "button" value = "Generer kontaktinfo" /></div>
+
+
+
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="container-fluid well">
+           <div class="span3">
+               <h6>Contact me</h6>
+                <div id="company"><span id="companyName"></span><br/><span id="catchPhrase"></span></div>
+                <div id="name"><span id="firstName"></span>&nbsp;<span id="lastName"></span></div>
+                <div id="address"><span id="zipCode"></span>&nbsp;<span id="brState"></span></div>
+                <div id="phoneNumber"></div>
+                <div id="mail"></div>
+            </div>
+
+            <div class="span3">
+
+                <h6>What we do</h6>
+                <ul>
+                <li id="bs" class=""></li>
+                <li id="bs2" class=""></li>
+                <li id="bs3" class=""></li>
+                <li id="bs4" class=""></li>
+                    </ul>
+        </div>
+
+    </div>
+
+
+    <script src = "js/jquery.js" type = "text/javascript"></script>
+    <script src = "js/Faker.js" type = "text/javascript"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function(e){
+
+
+            String.prototype.lower = function() {
+                return this.toLowerCase();
+            }
+
+            $('#generate').click(function(){
+                var name = Faker.Name.findName();
+                var firstName = Faker.Name.firstName();
+                var lastName = Faker.Name.lastName();
+                //var mail = Faker.Internet.email();
+                var domainName = Faker.Internet.domainName();
+                var mail=lastName.lower()+"@"+domainName;
+                var zipCode = Faker.Address.zipCode();
+                var brState = Faker.Address.brState();
+                var companyName = Faker.Company.companyName();
+                var catchPhrase = Faker.Company.catchPhrase();
+                var bs = Faker.Company.bs();
+                var bs2 = Faker.Company.bs();
+                var bs3 = Faker.Company.bs();
+                var bs4 = Faker.Company.bs();
+                var phoneNumber = Faker.PhoneNumber.phoneNumber();
+                var randomNumber = Faker.Helpers.randomNumber();
+                $('#firstName').html(firstName);
+                $('#lastName').html(lastName);
+                $('#mail').html(mail);
+                $('#zipCode').html(zipCode);
+                $('#brState').html(brState);
+                $('#phoneNumber').html(phoneNumber);
+                $('#companyName').html(companyName);
+                $('#catchPhrase').html(catchPhrase);
+                $('#bs').html(bs);
+                $('#bs2').html(bs2);
+                $('#bs3').html(bs3);
+                $('#bs4').html(bs4);
+
+            });
+
+            var name = Faker.Name.findName();
+            var firstName = Faker.Name.firstName();
+            var lastName = Faker.Name.lastName();
+            //var mail = Faker.Internet.email();
+            var domainName = Faker.Internet.domainName();
+            var mail=lastName.lower()+"@"+domainName;
+            var zipCode = Faker.Address.zipCode();
+            var brState = Faker.Address.brState();
+            var companyName = Faker.Company.companyName();
+            var catchPhrase = Faker.Company.catchPhrase();
+            var bs = Faker.Company.bs();
+            var bs2 = Faker.Company.bs();
+            var bs3 = Faker.Company.bs();
+            var bs4 = Faker.Company.bs();
+            var phoneNumber = Faker.PhoneNumber.phoneNumber();
+            var randomNumber = Faker.Helpers.randomNumber();
+            $('#firstName').html(firstName);
+            $('#lastName').html(lastName);
+            $('#mail').html(mail);
+            $('#zipCode').html(zipCode);
+            $('#brState').html(brState);
+            $('#phoneNumber').html(phoneNumber);
+            $('#companyName').html(companyName);
+            $('#catchPhrase').html(catchPhrase);
+            $('#bs').html(bs);
+            $('#bs2').html(bs2);
+            $('#bs3').html(bs3);
+            $('#bs4').html(bs4);
+
+        });
+    </script>
+
+
+
+{% endblock %}

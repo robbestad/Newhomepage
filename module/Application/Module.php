@@ -19,12 +19,17 @@ use Application\View\Helper\Dump;
 use Application\View\Helper\FormatMillisecondsToReadableTime;
 use Application\View\Helper\AdHelper;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
+//use ZfcTwig\Twig\Extension\SarTwig as SarTwig;
+use ZfcTwig\Twig\Extension\SarTwig as SarTwig;
+
+
 
 class Module implements
     ConfigProviderInterface
 {
     public function onBootstrap(MvcEvent $e)
     {
+
         $e->getApplication()->getServiceManager()->get('translator');
         $e->getApplication()->getServiceManager()->get('viewhelpermanager')->setFactory(
             'controllerName', function($sm) use ($e) {
@@ -148,6 +153,10 @@ class Module implements
             'Application\Service\AdHandler' => function ($sm) {
                 return new \Application\Service\AdHandler($sm->get('config'));
             },
+            'SarTwig' => function($sm) {
+                        return new SarTwig($sm->get('ZfcTwigRenderer'));
+            },
+
 
         )
     );

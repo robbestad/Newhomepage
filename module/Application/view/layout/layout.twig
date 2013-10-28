@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     {{ headMeta() }}
-    <title>Flat UI</title>
+    <title>{% block pagetitle %}Sven A Robbestad{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Loading Bootstrap -->
@@ -15,10 +15,11 @@
     <link href="/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
     <!-- Loading Flat UI -->
-    <link href="/css/flat-ui.css" rel="stylesheet">
+    <link href="/css/red.css" rel="stylesheet">
+    <link href="/css/zocial.css" rel="stylesheet">
 
     <!-- Github widget -->
-    <link href="/css/hubinfo.min.css" rel="stylesheet">
+    <!--<link href="/css/hubinfo.min.css" rel="stylesheet">-->
 
     <link rel="shortcut icon" href="/images/favicon.ico">
 
@@ -34,7 +35,7 @@
         <div class="container">
             <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target="#nav-collapse-02">
             </button>
-            <a href="/" class="brand">Sven A Robbestad</a>
+            <a href="/" class="brand">{% block title %}Sven A Robbestad{% endblock %}</a>
             <div class="nav-collapse collapse" id="nav-collapse-02">
                 <form class="navbar-search form-search pull-right" action="">
                     <div class="input-append">
@@ -46,26 +47,41 @@
                 </form>
 
                 <ul class="nav pull-right">
+
+                {% block adminpanel %}
+                    {% if(session.loggedIn is defined and session.loggedIn == true) %}
+                        <li>
+                            <a href="/">
+                               Anders:)
+                            </a>
+                        </li>
+
+                    {% endif %}
+
+
+                {% endblock %}
+
+
                     <li>
                         <a href="/">
-                            <span class="fui-home"></span><span class="hidden-desktop">Hjem</span>
+                            Hjem
                         </a>
                     </li>
 
-                    <li class="active">
+                    <li class="">
                         <a href="/contact">
-                            <span class="fui-bubble"></span><span class="hidden-desktop">Kontakt</span>
+                            Kontakt
                         </a>
                     </li>
                     <li>
                         <a href="/resume">
-                            <span class="fui-document"></span><span class="hidden-desktop">CV</span>
+                            CV
                         </a>
                     </li>
 
                     <li>
                         <a href="http://blog.robbestad.no/#blog">
-                            <span class="fui-book"></span><span class="hidden-desktop">Blogg</span>
+                            Blogg
                         </a>
                     </li>
 

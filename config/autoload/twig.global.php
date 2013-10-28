@@ -11,6 +11,8 @@
  * credentials from accidentally being committed into version control.
  */
 
+$debug=false;
+
 return array(
 
     'zfctwig' => array(
@@ -26,7 +28,11 @@ return array(
          */
         'environment_options' => array(
             // cache path
-            'cache' => 'data/cache/twig',
+            'cache' => false,
+            'strict_variables' => $debug,
+            'auto_reload'      => $debug,
+
+            //'cache' => 'data/cache/twig',
         ),
 
         /**

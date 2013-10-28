@@ -3,6 +3,11 @@
  * This makes our life easier when dealing with paths. Everything is relative
  * to the application root now.
  */
+
+
+session_start();
+$_SESSION["name"]="Anders";
+
 chdir(dirname(__DIR__));
 ini_set("display_errors","On");
 
