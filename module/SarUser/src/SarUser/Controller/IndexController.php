@@ -6,14 +6,12 @@
  */
 
 namespace SarUser\Controller;
-use \SarUser\Service\SecureHash;
-
-use Zend\Db\Adapter\Adapter;
-use Zend\Mvc\Controller\AbstractActionController,
+use SarUser\Service\SecureHash,
+    SarUser\Service\SecureHashSha,
+    Zend\Mvc\Controller\AbstractActionController,
     Zend\View\Model\ViewModel,
     SarUser\Form\LoginForm,
-    SarUser\Model\Login,
-    SarUser\Model\UserTable;
+    SarUser\Model\Login;
 
 
 class IndexController extends AbstractActionController
@@ -36,19 +34,20 @@ class IndexController extends AbstractActionController
 
     private function verifyUserData()
     {
-        $secureHash=new secureHash();
-        //$this->getUserTable();
+        //$secureHash=new secureHash();
+        $secureHash=new secureHashSha();
+
         $sm = $this->getServiceLocator();
         $userTable=$sm->get('SarUser\Model\UserTable');
-        var_dump($userTable->getUserByUsername($this->_username));
-        echo "<hr>";
+        $username=$userTable->getUserByUsername($this->_username)["Login"];
+        $hashedPassword=$userTable->getUserByUsername($this->_username)["Login"];
+        $salt=$userTable->getUserByUsername($this->_username)["Salt"];
+
 
         $hash=$secureHash->returnHash($this->_password);
         try{
-            echo $this->_password;
-            echo "<br>".$hash;
-
-            return $secureHash->verifyHash($this->_password,$hash) ?  true:false;
+            //return $secureHash->verifyHash($hashedPassword,$hash) ?  true:false;
+            return $secureHash->verifyHash($this->_password,$hash,$salt) ?  true:false;
 
         } catch (Exception $e) {
             echo 'Caught exception: ',  $e->getMessage(), "\n";
@@ -76,11 +75,21 @@ class IndexController extends AbstractActionController
 
                 if($this->verifyUserData()){
                     $_SESSION["loggedIn"]=true;
+                    //echo "<h6>Password OK</h6>";
+                    //return $this->redirect()->toRoute('/');
+                } else {
+                    //return $this->redirect()->toRoute('/user');
+
+                    $viewModel = new ViewModel();
+                    $viewModel->setTemplate("login");
+                    return $viewModel->setVariables(array(
+                        "feedback" => "Password mismatch",
+                         'form' => $form
+                    ));
+
+
                 }
                 //$this->getAlbumTable()->saveAlbum($album);
-
-                // Redirect to list of albums
-                //return $this->redirect()->toRoute('album');
             }
         }
 

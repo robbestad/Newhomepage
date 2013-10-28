@@ -19,7 +19,7 @@ class UserTable
         return $resultSet;
     }
 
-    public function getUser($id)
+    public function getUserById($id)
     {
         $id  = (int) $id;
         $rowset = $this->tableGateway->select(array('ID' => $id));
@@ -44,11 +44,11 @@ class UserTable
     }
 
 
-    public function saveUser(Login $login)
+    public function saveUser(Login $login, $hashed_password)
     {
         $data = array(
             'Login' => $login->username,
-            'Password'  => $login->password,
+            'Password'  => $hashed_password,
         );
 
         $id = (int)$login->id;

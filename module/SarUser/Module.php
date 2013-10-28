@@ -6,6 +6,8 @@ use SarUser\Model\Login;
 use SarUser\Model\UserTable;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
+use Zend\Form\View\Helper\FormRow;
+
 
 class Module
 {
@@ -27,6 +29,19 @@ class Module
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
                 ),
+            ),
+        );
+    }
+
+    public function getViewHelperConfig()
+    {
+        return array(
+            'factories' => array(
+                'formRow' => function($sm) {
+                        $helper = new FormRow();
+                        $helper->setRenderErrors(false);
+                        return $helper;
+                    }
             ),
         );
     }
