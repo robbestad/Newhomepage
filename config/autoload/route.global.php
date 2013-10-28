@@ -54,6 +54,19 @@ return array(
                 ),
             ),
 
+
+            'showcase' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/showcase',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'showcase',
+
+                    ),
+                ),
+            ),
+
             'error' => array(
                 'type' => 'literal',
                 'options' => array(

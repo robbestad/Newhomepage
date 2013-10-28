@@ -11,5 +11,5 @@ if(! defined('PNGCRUSH_ENABLED') )      define ('PNGCRUSH_ENABLED', true);
 if(! defined('PNGCRUSH_PATH') )         define ('PNGCRUSH_PATH', '/opt/local/bin/pngcrush'); //This will only run if OPTIPNG_P
 define ('MEMORY_LIMIT', '10M'); 
 define('ALLOW_ALL_EXTERNAL_SITES',FALSE);
-$ALLOWED_SITES=array('csp.picsearch.com','www.sol.no');
-define('FILE_CACHE_DIRECTORY','../../../data/cache/tt');
+$ALLOWED_SITES=array('svenardo.com','www.sol.no');
+define('FILE_CACHE_DIRECTORY','../../data/cache/tt');

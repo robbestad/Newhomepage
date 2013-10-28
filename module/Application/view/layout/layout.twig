@@ -62,12 +62,6 @@
                 {% endblock %}
 
 
-                    <li>
-                        <a href="/">
-                            Hjem
-                        </a>
-                    </li>
-
                     <li class="">
                         <a href="/contact">
                             Kontakt
@@ -78,6 +72,14 @@
                             CV
                         </a>
                     </li>
+
+
+                    <li>
+                        <a href="/showcase">
+                            Showcase
+                        </a>
+                    </li>
+
 
                     <li>
                         <a href="http://blog.robbestad.no/#blog">
@@ -107,26 +109,29 @@
 
     {% block footer %}
 
-        <div class="mtl pbl">
-            <div class="bottom-menu bottom-menu-inverse">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="span6 brand">
-                            <a href="/" class="brand">Sven Anders Robbestad</a>
+        <div class="clearfix"></div>
+        <div id="footer2">
+            <div class="container">
+                <div class="row">
+                    <div class="span12">
+                        <div class="copyright">
+
+                            <div class="span3 brand">
+                                <a href="/" class="brand">Sven Anders Robbestad</a>
+                            </div>
+
+                            <div class="span6 pull-right">
+                                Bermingrudveien 41 -
+                                3300 Hokksund -
+                                Norge
+
+                            </div>
                         </div>
-
-                        <div class="span6">
-                            Bermingrudveien 41 -
-                            3300 Hokksund -
-                            Norway
-
-                        </div>
-
-
                     </div>
                 </div>
-            </div> <!-- /bottom-menu-inverse -->
+            </div>
         </div>
+
 
     {% endblock %}
 
