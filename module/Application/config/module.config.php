@@ -41,6 +41,7 @@ return array(
         'template_map' => array(
                 'application/index/index'   => __DIR__ . '/../view/application/index/index.twig',
                 'application/index/resume'  => __DIR__ . '/../view/application/index/resume.twig',
+                'application/index/showcase'  => __DIR__ . '/../view/application/index/showcase.twig',
                 'application/index/contact'  => __DIR__ . '/../view/application/index/contact.twig',
                 'application/index/blog'  => __DIR__ . '/../view/application/index/blog.twig',
                 'application/index/error'   => __DIR__ . '/../view/error/index.twig',
