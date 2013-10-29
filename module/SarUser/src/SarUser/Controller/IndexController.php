@@ -57,6 +57,15 @@ class IndexController extends AbstractActionController
 
     }
 
+    /**
+     * Redirect to account if logged in
+     */
+    private function _redirectToAccountIfLoggedIn()
+    {
+        if(!empty($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]===true){
+            return $this->redirect()->toUrl("/user/account");
+        }
+    }
 
 
     /**
@@ -100,6 +109,8 @@ class IndexController extends AbstractActionController
      */
     public function loginAction()
     {
+        $this->_redirectToAccountIfLoggedIn();
+
         $form = new LoginForm();
         $form->get('submit')->setAttribute('value', 'Add');
 
@@ -143,6 +154,8 @@ class IndexController extends AbstractActionController
 
     public function userAction()
     {
+        $this->_redirectToAccountIfLoggedIn();
+
         return new ViewModel();
     }
 
@@ -163,6 +176,8 @@ class IndexController extends AbstractActionController
 
     public function registerAction()
     {
+        $this->_redirectToAccountIfLoggedIn();
+
 
         $form = new LoginForm();
         $form->get('submit')->setAttribute('value', 'Add');
@@ -210,6 +225,7 @@ class IndexController extends AbstractActionController
 
     public function indexAction()
     {
+        $this->_redirectToAccountIfLoggedIn();
 
 
     }
