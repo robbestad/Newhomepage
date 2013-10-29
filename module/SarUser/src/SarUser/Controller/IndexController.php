@@ -40,7 +40,7 @@ class IndexController extends AbstractActionController
         $sm = $this->getServiceLocator();
         $userTable=$sm->get('SarUser\Model\UserTable');
         $username=$userTable->getUserByUsername($this->_username)["Login"];
-        $hashedPassword=$userTable->getUserByUsername($this->_username)["Login"];
+        $hashedPassword=$userTable->getUserByUsername($this->_username)["Password"];
         $salt=$userTable->getUserByUsername($this->_username)["Salt"];
 
 
@@ -106,7 +106,7 @@ class IndexController extends AbstractActionController
     {
         $request = $this->getRequest();
         if ($request->isPost()) {
-            var_dump($request->getContent());
+            //var_dump($request->getContent());
             }
         $hash="";
         $inputPassword="";

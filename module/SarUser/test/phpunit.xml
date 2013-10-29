@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+        bootstrap="./Bootstrap.php"
+        colors="true"
+        backupGlobals="false"
+        >
+    <testsuites>
+        <testsuite name="saruser">
+            <directory>./SarUserTest</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

@@ -43,27 +43,26 @@
 {% endif %}
 #}
 <div class="container-fluid wrapper">
-    <div class="span5">
 
-    <form action="" method="post" name="login" class="form-inline" id="login">
+    <form action="" method="post" name="login" class="form-inline well" id="login">
+    <h3 class="title">Logg inn</h3>
+    <span class="help-block">Logg inn med ditt passord og brukernavn.
+        <br/>Har du glemt det? Du kan hente glemt passord her: <a href="/user/forgottenpassword">Glemt passord</a>.</span>
+<p>
+            <input name="username" type="text" class="input span3" placeholder="Brukernavn" value="">
+            <!--<span class="help-inline">help?</span>-->
+</p>
+
+<p>
+
+            <input name="password" type="password" class="input span3" placeholder="Passord" value="">
+            <!--<span class="help-inline">help?</span>-->
+</p>
 
 
-        <form class="well">
-            <label>Brukernavn</label>
-            <input name="username" type="text" class="input span3" placeholder="Email" value="">
-            <span class="help-inline">Associated help text!</span>
-            <label class="checkbox">
-                <input type="checkbox"> Husk
-            </label>
-            <button type="submit" class="btn">Submit</button>
-        </form>
-        - See more at: http://www.w3resource.com/twitter-bootstrap/forms-tutorial.php#sthash.wHGjFIRG.dpuf
-
-        <input name="username" type="text" class="input" placeholder="Email" value="Anders">
-        <input name="password" type="password" class="input" placeholder="Password" value="d0llar">
-        <input name="submit" type="submit" id="submitbutton" class="btn" value="Logg inn">
+           <button name="submit" type="submit" id="submitbutton" class="btn">Send</button>
     </form>
-    </div>
+
     {% if feedback is defined %}
     <div class="offset1 span5">
     <p class="error">Følgende informasjon må rettes:</p>

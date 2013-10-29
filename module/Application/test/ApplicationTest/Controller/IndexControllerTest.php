@@ -1,5 +1,5 @@
 <?php
-/*
+
 
 namespace ApplicationTest\Controller;
 
@@ -41,33 +41,13 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testIndex()
     {
-        //$this->routeMatch(array("controller"=> "index"));
-        //$this->setUp();
-        //$this->dispatch('/');
-        //echo $this->getResponse();
-        $this->assertContains('bla bla', $this->getResponse);
+        $this->routeMatch(array("controller"=> "index"));
+        $this->setUp();
+        $this->dispatch('/');
+        echo $this->getResponse();
+        //$this->assertContains('bla bla', $this->getResponse);
     }
 
 }
-*/
-
-namespace ApplicationTest\Controller;
-
-use Behat\Mink\Mink,
-    Behat\Mink\Session;
-
-class IndexControllerTest extends \MinkTestCase
-{
-
-
-    public function testIndex()
-    {
-        //$serviceManager = Bootstrap::getServiceManager();
-        //$this->controller = new IndexController();
-        //$this->request    = new Request();
-
-    }
-
-
 }
 
