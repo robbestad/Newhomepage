@@ -44,21 +44,26 @@ class UserTable
     }
 
 
-    public function saveUser(Login $login, $hashed_password)
+    public function saveUser($username, $hashed_password, $salt="", $id=0)
     {
+        $rand=rand(1,10000000000);
         $data = array(
-            'Login' => $login->username,
+            'Login' => $username,
             'Password'  => $hashed_password,
+            'Salt'  => $salt,
+            'Forum_nick' =>$username.$rand,
         );
 
-        $id = (int)$login->id;
         if ($id == 0) {
             $this->tableGateway->insert($data);
+            return true;
         } else {
             if ($this->getUser($id)) {
                 $this->tableGateway->update($data, array('ID' => $id));
+                return true;
             } else {
-                throw new \Exception('Form id does not exist');
+                return false;
+                //throw new \Exception('Form id does not exist');
             }
         }
     }

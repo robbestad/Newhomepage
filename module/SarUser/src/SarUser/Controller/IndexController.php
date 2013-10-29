@@ -11,7 +11,8 @@ use SarUser\Service\SecureHash,
     Zend\Mvc\Controller\AbstractActionController,
     Zend\View\Model\ViewModel,
     SarUser\Form\LoginForm,
-    SarUser\Model\Login;
+    SarUser\Model\Login,
+    SarUser\Model\Register;
 
 
 class IndexController extends AbstractActionController
@@ -19,42 +20,84 @@ class IndexController extends AbstractActionController
 
     protected $_username="";
     protected $_password="";
+    protected $_hashedPassword="";
+    protected $_salt="";
     protected $userTable;
-/*
-    public function getUserTable()
+
+    /**
+     * Saves a new user
+     * @return bool
+     */
+    private function _saveUser()
     {
-        if (!$this->userTable) {
-            $sm = $this->getServiceLocator();
-            $this->userTable = $sm->get('SarUser\Model\UserTable');
-        }
-        $this->userTable = $sm->get('SarUser\Model\UserTable');
-        return $this->userTable;
+        $sm = $this->getServiceLocator();
+        $userTable=$sm->get('SarUser\Model\UserTable');
+        return($userTable->saveUser($this->_username, $this->_hashedPassword, $this->_salt));
     }
-*/
 
-    private function verifyUserData()
+    /**
+     * Logs in user and redirects to account route
+     */
+    private function _logInUserAndRedirectToAccount()
     {
-        //$secureHash=new secureHash();
-        $secureHash=new secureHashSha();
+        $_SESSION["loggedIn"]=true;
+        $_SESSION["username"]=$this->_username;
+        return $this->redirect()->toUrl("/user/account");
 
+    }
+
+    /**
+     * Logs in user and redirects to home page
+     */
+    private function _logOutAndRemoveSessionData()
+    {
+        $_SESSION["loggedIn"]=false;
+        unset($_SESSION["username"]);
+        unset($_SESSION["name"]);
+
+    }
+
+
+
+    /**
+     * Verifies that user data is input correctly
+     * @return bool
+     */
+    private function _verifyUserData()
+    {
+        $secureHash=new secureHashSha();
         $sm = $this->getServiceLocator();
         $userTable=$sm->get('SarUser\Model\UserTable');
         $username=$userTable->getUserByUsername($this->_username)["Login"];
-        $hashedPassword=$userTable->getUserByUsername($this->_username)["Login"];
-        $salt=$userTable->getUserByUsername($this->_username)["Salt"];
-
-
-        $hash=$secureHash->returnHash($this->_password);
+        $hashedPassword=$userTable->getUserByUsername($this->_username)["Password"];
+        $this->_salt=$userTable->getUserByUsername($this->_username)["Salt"];
+        $this->_hashedPassword=$hashedPassword;
         try{
-            //return $secureHash->verifyHash($hashedPassword,$hash) ?  true:false;
-            return $secureHash->verifyHash($this->_password,$hash,$salt) ?  true:false;
-
+            return $secureHash->verifyHash($this->_password,$hashedPassword,$this->_salt);
         } catch (Exception $e) {
             echo 'Caught exception: ',  $e->getMessage(), "\n";
         }
-
     }
 
+
+    /**
+     * Verifies that a chosen username is unique
+     * @return bool
+     */
+    private function _verifyThatUserNameIsUnique($username)
+    {
+        if($this->getServiceLocator()->get('SarUser\Model\UserTable')->getUserByUsername($this->_username)["Login"]){
+          return false;
+        }
+
+        return true;
+    }
+
+
+    /**
+     * Screen for logging in the user
+     * @return array|ViewModel
+     */
     public function loginAction()
     {
         $form = new LoginForm();
@@ -73,23 +116,20 @@ class IndexController extends AbstractActionController
                 $this->_password=$form->getData()['password'];
                 $this->_username=$form->getData()['username'];
 
-                if($this->verifyUserData()){
-                    $_SESSION["loggedIn"]=true;
-                    //echo "<h6>Password OK</h6>";
-                    //return $this->redirect()->toRoute('/');
-                } else {
-                    //return $this->redirect()->toRoute('/user');
+                if($this->_verifyUserData()){
+                    $this->_logInUserAndRedirectToAccount();
 
+                } else {
                     $viewModel = new ViewModel();
-                    $viewModel->setTemplate("login");
+                    $viewModel->setTemplate("sar-user/index/login");
                     return $viewModel->setVariables(array(
                         "feedback" => "Password mismatch",
-                         'form' => $form
+                        "brukernavn" => $this->_username,
+                        "passord" => $this->_password,
+
+                        'form' => $form
                     ));
-
-
                 }
-                //$this->getAlbumTable()->saveAlbum($album);
             }
         }
 
@@ -101,75 +141,75 @@ class IndexController extends AbstractActionController
         return new ViewModel();
     }
 
+    public function userAction()
+    {
+        return new ViewModel();
+    }
+
+
+    public function logoutAction()
+    {
+        $this->_logOutAndRemoveSessionData();
+        return $this->redirect()->toUrl("/");
+
+    }
+
+
+    public function accountAction()
+    {
+        return new ViewModel();
+    }
+
+
+    public function registerAction()
+    {
+
+        $form = new LoginForm();
+        $form->get('submit')->setAttribute('value', 'Add');
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $login = new Register();
+            $form->setInputFilter($login->getInputFilter());
+            $form->setData($request->getPost());
+            if ($form->isValid()) {
+                $login->exchangeArray($form->getData());
+
+
+                // verify match between username & password
+                $this->_password=$form->getData()['password'];
+                $this->_username=$form->getData()['username'];
+
+                if($this->_verifyThatUserNameIsUnique($this->_username)){
+                    $secureHash=new secureHashSha();
+                    $hash=$secureHash->returnHash($this->_password);
+                    $this->_salt=$hash[0];
+                    $this->_hashedPassword=$hash[1];
+
+                    // save user and return to logged in
+                   $this->_saveUser();
+                   $this->_logInUserAndRedirectToAccount();
+
+                } else {
+                    $viewModel = new ViewModel();
+                    $viewModel->setTemplate("sar-user/index/register");
+                    return $viewModel->setVariables(array(
+                        "feedback" => "Brukernavnet finnes fra før",
+                        "brukernavn" => $this->_username,
+                        "passord" => $this->_password,
+                        'form' => $form
+                    ));
+                }
+
+            }
+        }
+
+        return array('form' => $form);
+    }
+
 
     public function indexAction()
     {
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-            var_dump($request->getContent());
-            }
-        $hash="";
-        $inputPassword="";
-        $secureHash=new secureHash();
-        $letters=array("a","b","c","d","e","f","g","?","$","@","%","#","h","i","j","k","l","m",
-            "n","o","p","q","r","s","t","u","w","x","y","z","(",")","!");
-        for($i=0;$i<16;$i++){
-            $inputPassword.=$letters[rand(0,count($letters)-1)];
-        }
-
-        try{
-            $hash=$secureHash->returnHash($inputPassword);
-            //echo "The following hash was generated: $hash \n";
-
-        } catch (Exception $e) {
-            echo 'Failed, function threw exception: ',  $e->getMessage(), "\n";
-        }
-
-
-
-        /*
-        * Verification
-        *
-        * Verification is as simple as calling the class
-        * and passing the submitted password and the hash
-        * If the hash matches, the function returns true
-        */
-
-        $secureHash=new secureHash();
-        $verifyPassword=$inputPassword;
-
-        try{
-            $verification= $secureHash->verifyHash($verifyPassword,$hash) ?  "Passed verification\n" :  "Verification failed\n";
-
-        } catch (Exception $e) {
-            echo 'Caught exception: ',  $e->getMessage(), "\n";
-        }
-
-
-        //return $this->redirect()->toRoute('login');
-
-        $viewModel = new ViewModel();
-        $viewModel->setTemplate("login");
-        return $viewModel->setVariables(array(
-            "pass" => $inputPassword,
-            "hash" => $hash,
-            "verification" => $verification
-        ));
-        /*
-
-        $viewModel = new ViewModel();
-        $viewModel->setTemplate("nybruker");
-
-        $viewModel->setTemplate("login");
-
-        //$viewModel->setTemplate("status");
-
-        return $viewModel->setVariables(array(
-            "pass" => $inputPassword,
-            "hash" => $hash,
-            "verification" => $verification
-        ));
-        */
 
 
     }

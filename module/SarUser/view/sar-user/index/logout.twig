@@ -1,0 +1,19 @@
+{% extends "layout/layout.twig" %}
+
+
+
+
+{% block pagecontent %}
+
+
+
+    <form action="" method="post" name="logout" class="form-inline well" id="logout">
+        <h3 class="title">Logg ut</h3>
+
+{{ dump(session) }}
+        <button name="submit" type="submit" id="submitbutton" class="btn">Logg ut</button>
+    </form>
+
+
+
+{% endblock %}

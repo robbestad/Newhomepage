@@ -16,7 +16,7 @@ return array(
 
     'router' => array(
         'routes' => array(
-            'saruser' => array(
+            'saruser-route' => array(
                 'type' => 'Literal',
                 'priority' => 1000,
                 'options' => array(
@@ -35,6 +35,16 @@ return array(
                             'defaults' => array(
                                 'controller' => 'saruser',
                                 'action'     => 'login',
+                            ),
+                        ),
+                    ),
+                    'account' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/account',
+                            'defaults' => array(
+                                'controller' => 'saruser',
+                                'action'     => 'account',
                             ),
                         ),
                     ),
@@ -63,7 +73,7 @@ return array(
                         'options' => array(
                             'route' => '/register',
                             'defaults' => array(
-                                '__NAMESPACE__' => 'SarUser\Controller',
+                                '__NAMESPACE__' => 'saruser',
                                 'controller' => 'saruser',
                                 'action'     => 'register',
                             ),
@@ -104,11 +114,21 @@ return array(
         'not_found_exception'       => 'error',
         'not_found_template'        => 'error/404',
         'exception_template'        => 'error/index',
+
         'template_map' => array(
             'login/index/index'   => __DIR__ . '/../view/sar-user/index/index.twig',
             'nybruker'   => __DIR__ . '/../view/sar-user/index/nybruker.twig',
             'status'   => __DIR__ . '/../view/sar-user/index/index.twig',
-            'login'   => __DIR__ . '/../view/sar-user/index/login.twig',
+            'sar-user/index/account'   => __DIR__ . '/../view/sar-user/index/account.twig',
+            'sar-user/index/login'   => __DIR__ . '/../view/sar-user/index/login.twig',
+            'sar-user/index/logout'   => __DIR__ . '/../view/sar-user/index/logout.twig',
+            'sar-user/index/register'   => __DIR__ . '/../view/sar-user/index/nybruker.twig',
+            'register'   => __DIR__ . '/../view/sar-user/index/nybruker.twig',
+            'error/index'               => __DIR__ . '/../view/sar-user/error/index.twig',
+            'error/404'                 => __DIR__ . '/../view/sar-user/error/index.twig',
+            'layout/layout'                 => __DIR__ . '/../../Application/view/layout/layout.twig',
+
+
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view',

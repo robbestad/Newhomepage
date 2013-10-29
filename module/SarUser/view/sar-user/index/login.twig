@@ -43,63 +43,35 @@
 {% endif %}
 #}
 <div class="container-fluid wrapper">
-    <div class="span5">
 
-    <form action="" method="post" name="login" class="form-inline" id="login">
+    <form action="" method="post" name="login" class="form-inline well" id="login">
+    <h3 class="title">Logg inn</h3>
+    <span class="help-block">Logg inn med ditt passord og brukernavn.
+        <br/>Har du glemt det? Du kan hente glemt passord her: <a href="/user/forgottenpassword">Glemt passord</a>.
+        <br/>Dersom du vil opprette ny konto kan du gjøre det her: <a href="/user/register">Ny konto</a>.</span>
+        {% if feedback is defined %}
+           <div class="clearfix"></div>
+            <span class="help-inline">
+                <p class="error">
+                    <span class="help-inline">{{ feedback }}</span>
+                </p>
+               </span>
+        {%  endif  %}
 
 
-        <form class="well">
-            <label>Brukernavn</label>
-            <input name="username" type="text" class="input span3" placeholder="Email" value="">
-            <span class="help-inline">Associated help text!</span>
-            <label class="checkbox">
-                <input type="checkbox"> Husk
-            </label>
-            <button type="submit" class="btn">Submit</button>
-        </form>
-        - See more at: http://www.w3resource.com/twitter-bootstrap/forms-tutorial.php#sthash.wHGjFIRG.dpuf
+        <p>
+            <input name="username" type="text" class="input span3" placeholder="Brukernavn" value="{% if brukernavn is defined %}{{ brukernavn }}{%  endif  %}">
+</p>
+<p>
+            <input name="password" type="password" class="input span3" placeholder="Passord" value="{% if passord is defined %}{{ passord }}{%  endif  %}">
+            <!--<span class="help-inline">help?</span>-->
+</p>
 
-        <input name="username" type="text" class="input" placeholder="Email" value="Anders">
-        <input name="password" type="password" class="input" placeholder="Password" value="d0llar">
-        <input name="submit" type="submit" id="submitbutton" class="btn" value="Logg inn">
+
+           <button name="submit" type="submit" id="submitbutton" class="btn">Send</button>
     </form>
-    </div>
-    {% if feedback is defined %}
-    <div class="offset1 span5">
-    <p class="error">Følgende informasjon må rettes:</p>
-    {{ feedback }}
-    </div>
-    {%  endif  %}
+
     <div class="pad25 hidden-desktop"></div>
 </div>
 
-{% endblock %}
-
-{% block footer %}
-
-    <div id="footer">
-    <h1>get in touch</h1>
-    <h3 class="center follow">
-    We're social and we'd love to hear from you! Feel free to send us an email, find us on Google Plus, follow us on Twitter and join us on Facebook.</h3>
-
-    <div class="follow_us">
-        <a class="zocial twitter icon" href="#"></a>
-        <a class="zocial facebook icon" href="#"></a>
-        <a class="zocial linkedin icon" href="#"></a>
-        <a class="zocial googleplus icon" href="#"></a>
-    </div>
-    </div>
-    <div class="clearfix"></div>
-    <div id="footer2">
-        <div class="container">
-            <div class="row">
-                <div class="span12">
-                    <div class="copyright">
-
-                       Footer
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 {% endblock %}

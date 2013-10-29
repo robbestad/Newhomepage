@@ -41,7 +41,7 @@
                 <ul class="nav pull-right">
 
                 {% block adminpanel %}
-                    {% if(session.loggedIn is defined and session.loggedIn == true) %}
+                    {% if(session.username is defined and session.username == "Anders") %}
                         <li>
                             <a href="/">
                                Anders:)
@@ -49,6 +49,23 @@
                         </li>
                     {% endif %}
                 {% endblock %}
+
+                    {% if session.loggedIn is defined and session.loggedIn == true %}
+                        <li>
+                            <a href="/user/logout">
+                                Logg ut
+                            </a>
+                        </li>
+
+
+                    {% else %}
+
+                    <li>
+                        <a href="/user/login">
+                            Logg inn
+                        </a>
+                    </li>
+                    {% endif %}
 
 
                     <li>
@@ -98,6 +115,22 @@
 
     {% block footer %}
 
+        <div id="footer">
+            <h1>kontakt meg</h1>
+            <h3 class="center follow">
+                Send meg gjerne en epost, finn meg på Google Plus, Facebook, Twitter eller Github! Jeg gleder meg til å høre fra deg.
+                <!--
+                We're social and we'd love to hear from you! Feel free to send us an email, find us on Google Plus, follow us on Twitter and join us on Facebook.
+                -->
+            </h3>
+
+            <div class="follow_us">
+                <a class="zocial twitter icon" href="#"></a>
+                <a class="zocial facebook icon" href="#"></a>
+                <a class="zocial linkedin icon" href="#"></a>
+                <a class="zocial googleplus icon" href="#"></a>
+            </div>
+        </div>
         <div class="clearfix"></div>
         <div id="footer2">
             <div class="container">
