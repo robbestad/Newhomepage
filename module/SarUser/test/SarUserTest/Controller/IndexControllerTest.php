@@ -32,7 +32,7 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
     }
 
 
-    public function testUserActionCanBeAccessed()
+    public function testUserRouteCanBeAccessed()
     {
         $userTableMock = $this->getMockBuilder('SarUser\Model\UserTable')
             ->disableOriginalConstructor()
@@ -53,6 +53,54 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
         $this->assertControllerName('saruser');
         $this->assertControllerClass('IndexController');
     }
+
+
+    public function testLoginRouteCanBeAccessed()
+    {
+        $userTableMock = $this->getMockBuilder('SarUser\Model\UserTable')
+            ->disableOriginalConstructor()
+            ->getMock();
+        /*
+        $userTableMock->expects($this->once())
+            ->method('fetchAll')
+            ->will($this->returnValue(array()));
+        */
+        $serviceManager = $this->getApplicationServiceLocator();
+        $serviceManager->setAllowOverride(true);
+        $serviceManager->setService('SarUser\Model\UserTable', $userTableMock);
+
+        $this->dispatch('/user/login');
+        $this->assertMatchedRouteName('saruser-route/login');
+        $this->assertResponseStatusCode(200);
+
+        $this->assertControllerName('saruser');
+        $this->assertControllerClass('IndexController');
+    }
+
+
+
+    public function testRegisterUserRouteCanBeAccessed()
+    {
+        $userTableMock = $this->getMockBuilder('SarUser\Model\UserTable')
+            ->disableOriginalConstructor()
+            ->getMock();
+        /*
+        $userTableMock->expects($this->once())
+            ->method('fetchAll')
+            ->will($this->returnValue(array()));
+        */
+        $serviceManager = $this->getApplicationServiceLocator();
+        $serviceManager->setAllowOverride(true);
+        $serviceManager->setService('SarUser\Model\UserTable', $userTableMock);
+
+        $this->dispatch('/user/register');
+        $this->assertMatchedRouteName('saruser-route/register');
+        $this->assertResponseStatusCode(200);
+
+        $this->assertControllerName('saruser');
+        $this->assertControllerClass('IndexController');
+    }
+
 
 
 }
