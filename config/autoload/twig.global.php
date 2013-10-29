@@ -11,7 +11,7 @@
  * credentials from accidentally being committed into version control.
  */
 
-$debug=false;
+$debug=true;
 
 return array(
 
