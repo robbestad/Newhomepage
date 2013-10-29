@@ -16,7 +16,7 @@ return array(
 
     'router' => array(
         'routes' => array(
-            'saruser' => array(
+            'saruser-route' => array(
                 'type' => 'Literal',
                 'priority' => 1000,
                 'options' => array(
@@ -109,6 +109,10 @@ return array(
             'nybruker'   => __DIR__ . '/../view/sar-user/index/nybruker.twig',
             'status'   => __DIR__ . '/../view/sar-user/index/index.twig',
             'login'   => __DIR__ . '/../view/sar-user/index/login.twig',
+            'error/index'               => __DIR__ . '/../view/sar-user/index/empty.twig',
+            'error/404'                 => __DIR__ . '/../view/sar-user/index/empty.twig',
+            'layout/layout'                 => __DIR__ . '/../view/sar-user/index/empty.twig',
+
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view',

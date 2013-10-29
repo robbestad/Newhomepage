@@ -2,6 +2,8 @@
 <phpunit
         bootstrap="./Bootstrap.php"
         colors="true"
+        debug="true"
+        verbose="true"
         backupGlobals="false"
         >
     <testsuites>

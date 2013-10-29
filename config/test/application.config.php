@@ -3,7 +3,7 @@
 return array(
 
     'modules' => array(
-        'SarUser', 'ZfcTwig', 'ZfcBase' // replace this with your own module list
+        'SarUser', 'ZfcTwig', 'Application' // replace this with your own module list
     ),
     'module_listener_options' => array(
         'config_glob_paths'    => array(
