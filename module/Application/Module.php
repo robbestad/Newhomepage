@@ -24,6 +24,7 @@ use Zend\Session\SessionManager;
 use Zend\Session\Container;
 
 
+
 class Module implements
     ConfigProviderInterface
 {
