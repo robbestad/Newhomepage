@@ -6,15 +6,36 @@
 {% block pagecontent %}
 
 
+    <div class="container-fluid wrapper">
 
-    <div class="clearfix"></div>
-    <div class="container-fluid well">
-           <div class="span3">
-               <h6>Account</h6>
-               {{ session.username }}
-        </div>
+        <form action="" method="post" name="login" class="form-inline well" id="login">
+            <h3 class="title">Konto</h3>
+    <span class="help-block">Din kontoinformasjon.</span>
+            {% if feedback is defined %}
+                <div class="clearfix"></div>
+                <span class="help-inline">
+                <p class="error">
+                    <span class="help-inline">{{ feedback }}</span>
+                </p>
+               </span>
+            {%  endif  %}
 
+
+            <p>
+                {{ session.username }}
+            </p>
+            <p>
+                <input name="password" type="password" class="input span3" placeholder="Passord" value="{% if passord is defined %}{{ passord }}{%  endif  %}">
+                <!--<span class="help-inline">help?</span>-->
+            </p>
+
+
+            <button name="submit" type="submit" id="submitbutton" class="btn">Send</button>
+        </form>
+
+        <div class="pad25 hidden-desktop"></div>
     </div>
+
 
 
 

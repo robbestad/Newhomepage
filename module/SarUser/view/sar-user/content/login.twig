@@ -1,16 +1,12 @@
-{% extends "layout/layout.twig" %}
-
-{% block pagecontent %}
-
 <div class="container-fluid wrapper">
 
     <form action="" method="post" name="login" class="form-inline well" id="login">
-    <h3 class="title">Logg inn</h3>
+        <h3 class="title">Logg inn</h3>
     <span class="help-block">Logg inn med ditt passord og brukernavn.
         <br/>Har du glemt det? Du kan hente glemt passord her: <a href="/user/forgottenpassword">Glemt passord</a>.
         <br/>Dersom du vil opprette ny konto kan du gjøre det her: <a href="/user/register">Ny konto</a>.</span>
         {% if feedback is defined %}
-           <div class="clearfix"></div>
+            <div class="clearfix"></div>
             <span class="help-inline">
                 <p class="error">
                     <span class="help-inline">{{ feedback }}</span>
@@ -21,17 +17,15 @@
 
         <p>
             <input name="username" type="text" class="input span3" placeholder="Brukernavn" value="{% if brukernavn is defined %}{{ brukernavn }}{%  endif  %}">
-</p>
-<p>
+        </p>
+        <p>
             <input name="password" type="password" class="input span3" placeholder="Passord" value="{% if passord is defined %}{{ passord }}{%  endif  %}">
             <!--<span class="help-inline">help?</span>-->
-</p>
+        </p>
 
 
-           <button name="submit" type="submit" id="submitbutton" class="btn">Send</button>
+        <button name="submit" type="submit" id="submitbutton" class="btn">Send</button>
     </form>
 
     <div class="pad25 hidden-desktop"></div>
 </div>
-
-{% endblock %}

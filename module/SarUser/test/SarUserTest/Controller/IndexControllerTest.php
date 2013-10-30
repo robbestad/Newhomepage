@@ -42,6 +42,7 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
             ->method('fetchAll')
             ->will($this->returnValue(array()));
         */
+
         $serviceManager = $this->getApplicationServiceLocator();
         $serviceManager->setAllowOverride(true);
         $serviceManager->setService('SarUser\Model\UserTable', $userTableMock);
@@ -77,6 +78,25 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
         $this->assertControllerClass('IndexController');
     }
 
+
+   public function testChangePasswordRouteReroutesIfNotLoggedIn()
+   {
+       $userTableMock = $this->getMockBuilder('SarUser\Model\UserTable')
+           ->disableOriginalConstructor()
+           ->getMock();
+
+        $serviceManager = $this->getApplicationServiceLocator();
+        $serviceManager->setAllowOverride(true);
+        $serviceManager->setService('SarUser\Model\UserTable', $userTableMock);
+
+        $this->dispatch('/user/changepassword');
+        $this->assertMatchedRouteName('saruser-route/changepassword');
+        $this->assertResponseStatusCode(302);
+
+        $this->assertControllerName('saruser');
+        $this->assertControllerClass('IndexController');
+
+   }
 
 
     public function testRegisterUserRouteCanBeAccessed()
