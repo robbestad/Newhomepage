@@ -4,6 +4,8 @@
  * to the application root now.
  */
 
+#session_start();
+
 chdir(dirname(__DIR__));
 ini_set("display_errors","On");
 
