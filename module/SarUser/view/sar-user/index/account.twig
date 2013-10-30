@@ -8,8 +8,7 @@
 
     <div class="container-fluid wrapper">
 
-        <form action="" method="post" name="login" class="form-inline well" id="login">
-            <h3 class="title">Konto</h3>
+            <h2 class="title">Din konto</h2>
     <span class="help-block">Din kontoinformasjon.</span>
             {% if feedback is defined %}
                 <div class="clearfix"></div>
@@ -21,17 +20,15 @@
             {%  endif  %}
 
 
-            <p>
+            <p><label>Brukernavn</label>
                 {{ session.username }}
             </p>
-            <p>
-                <input name="password" type="password" class="input span3" placeholder="Passord" value="{% if passord is defined %}{{ passord }}{%  endif  %}">
-                <!--<span class="help-inline">help?</span>-->
+            <p><label>Endre passord</label>
+               <a href="/user/changepassword">Endre passord</a>
             </p>
 
 
-            <button name="submit" type="submit" id="submitbutton" class="btn">Send</button>
-        </form>
+
 
         <div class="pad25 hidden-desktop"></div>
     </div>
