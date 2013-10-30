@@ -46,7 +46,7 @@ class Module implements
         $serviceManager      = $e->getApplication()->getServiceManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
-        
+
         $eventManager->attach('dispatch', array($this, 'loadConfiguration' ), 100);
 
         //handle the dispatch error (exception)
@@ -171,7 +171,7 @@ class Module implements
                         return new SarTwig($sm->get('ZfcTwigRenderer'));
             },
 
-        ),
+
          'Zend\Session\SessionManager' => function ($sm) {
                  $config = $sm->get('config');
                  if (isset($config['session'])) {
@@ -213,6 +213,7 @@ class Module implements
                  Container::setDefaultManager($sessionManager);
                  return $sessionManager;
              },
+        ),
     );
     }
 
