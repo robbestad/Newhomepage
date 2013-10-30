@@ -42,6 +42,11 @@ class Module implements
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
 
+        $eventManager        = $e->getApplication()->getEventManager();
+        $serviceManager      = $e->getApplication()->getServiceManager();
+        $moduleRouteListener = new ModuleRouteListener();
+        $moduleRouteListener->attach($eventManager);
+        
         $eventManager->attach('dispatch', array($this, 'loadConfiguration' ), 100);
 
         //handle the dispatch error (exception)
