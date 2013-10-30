@@ -65,8 +65,9 @@ class IndexController extends AbstractActionController
 
     public function callbackAction()
     {
-        file_put_contents(__DIR__."/../../../../../../data/".strtotime("NOW").".json",print_r($_REQUEST,true));
-     #   return new ViewModel();
+        $data = json_decode(file_get_contents('php://input'), TRUE);
+        $text = print_r($data,true);
+        file_put_contents(__DIR__."/../../../../../../data/".strtotime("NOW").".json",$text);
     }
 
 
