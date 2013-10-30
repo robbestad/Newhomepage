@@ -58,7 +58,7 @@ class UserTable
             $this->tableGateway->insert($data);
             return true;
         } else {
-            if ($this->getUser($id)) {
+            if ($this->getUserById($id)) {
                 $this->tableGateway->update($data, array('ID' => $id));
                 return true;
             } else {

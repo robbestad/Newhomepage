@@ -6,11 +6,13 @@
  */
 
 namespace SarUser\Controller;
+use SarUser\Model\Changepassword;
 use SarUser\Service\SecureHash,
     SarUser\Service\SecureHashSha,
     Zend\Mvc\Controller\AbstractActionController,
     Zend\View\Model\ViewModel,
     SarUser\Form\LoginForm,
+    SarUser\Form\ChangepasswordForm,
     SarUser\Model\Login,
     SarUser\Model\Register;
 
@@ -26,13 +28,17 @@ class IndexController extends AbstractActionController
 
     /**
      * Saves a new user
+     * if $userid is given, the table will be updated rather than a new insert
      * @return bool
      */
-    private function _saveUser()
+    private function _saveUser($uname="",$hashpass="",$psalt="",$userid=0)
     {
         $sm = $this->getServiceLocator();
         $userTable=$sm->get('SarUser\Model\UserTable');
-        return($userTable->saveUser($this->_username, $this->_hashedPassword, $this->_salt));
+        $username= $uname!=""?$uname:$this->_username;
+        $hashedPassword= $hashpass!=""?$hashpass:$this->_hashedPassword;
+        $salt= $psalt!=""?$psalt:$this->_salt;
+        return($userTable->saveUser($username, $hashedPassword, $salt,$userid));
     }
 
     /**
@@ -41,6 +47,8 @@ class IndexController extends AbstractActionController
     private function _logInUserAndRedirectToAccount()
     {
         $_SESSION["loggedIn"]=true;
+        $userTable= $this->getServiceLocator()->get('SarUser\Model\UserTable');
+        $_SESSION["userid"]=$userTable->getUserByUsername($this->_username)["ID"];
         $_SESSION["username"]=$this->_username;
         return $this->redirect()->toUrl("/user/account");
 
@@ -54,6 +62,7 @@ class IndexController extends AbstractActionController
         $_SESSION["loggedIn"]=false;
         unset($_SESSION["username"]);
         unset($_SESSION["name"]);
+        unset($_SESSION["userid"]);
 
     }
 
@@ -67,6 +76,16 @@ class IndexController extends AbstractActionController
         }
     }
 
+    /**
+     * Redirect out of account
+     * if user is not logged in
+     */
+    private function _redirectIfNotLoggedIn()
+    {
+        if(empty($_SESSION["loggedIn"]) or $_SESSION["loggedIn"]===false){
+            return $this->redirect()->toUrl("/user/login");
+        }
+    }
 
     /**
      * Verifies that user data is input correctly
@@ -74,15 +93,23 @@ class IndexController extends AbstractActionController
      */
     private function _verifyUserData()
     {
-        $secureHash=new secureHashSha();
-        $sm = $this->getServiceLocator();
-        $userTable=$sm->get('SarUser\Model\UserTable');
+        $userTable=$this->getServiceLocator()->get('SarUser\Model\UserTable');
         $username=$userTable->getUserByUsername($this->_username)["Login"];
-        $hashedPassword=$userTable->getUserByUsername($this->_username)["Password"];
-        $this->_salt=$userTable->getUserByUsername($this->_username)["Salt"];
-        $this->_hashedPassword=$hashedPassword;
+        return($this->_verifyUsernameAndPassword($username,$this->_password));
+    }
+
+    /**
+     * Verify password and username
+     */
+    private function _verifyUsernameAndPassword($username, $password)
+    {
+        $secureHash=new secureHashSha();
+
+        $userTable= $this->getServiceLocator()->get('SarUser\Model\UserTable');
+        $hashedPassword=$userTable->getUserByUsername($username)["Password"];
+        $salt=$userTable->getUserByUsername($username)["Salt"];
         try{
-            return $secureHash->verifyHash($this->_password,$hashedPassword,$this->_salt);
+            return $secureHash->verifyHash($password,$hashedPassword,$salt);
         } catch (Exception $e) {
             echo 'Caught exception: ',  $e->getMessage(), "\n";
         }
@@ -134,7 +161,7 @@ class IndexController extends AbstractActionController
                     $viewModel = new ViewModel();
                     $viewModel->setTemplate("sar-user/index/login");
                     return $viewModel->setVariables(array(
-                        "feedback" => "Password mismatch",
+                        "feedback" => "Username or password is wrong...",
                         "brukernavn" => $this->_username,
                         "passord" => $this->_password,
 
@@ -178,8 +205,7 @@ class IndexController extends AbstractActionController
     {
         $this->_redirectToAccountIfLoggedIn();
 
-
-        $form = new LoginForm();
+        $form = new ChangepasswordForm();
         $form->get('submit')->setAttribute('value', 'Add');
 
         $request = $this->getRequest();
@@ -189,7 +215,6 @@ class IndexController extends AbstractActionController
             $form->setData($request->getPost());
             if ($form->isValid()) {
                 $login->exchangeArray($form->getData());
-
 
                 // verify match between username & password
                 $this->_password=$form->getData()['password'];
@@ -226,7 +251,97 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {
         $this->_redirectToAccountIfLoggedIn();
+    }
 
+    private function _isPasswordValid($pwd)
+    {
+        $score=0;
+        $status=strlen($pwd)>5?true:false;
+        if(!$status) return $status;
+
+        $score++;
+
+        if (preg_match("/[a-zæøå]/", $pwd) && preg_match("/[A-ZÆØÅ]/", $pwd))
+        {
+            $score++;
+        }
+        if (preg_match("/[0-9]/", $pwd))
+        {
+            $score++;
+        }
+        if (preg_match("/.[!,@,#,$,%,^,&,*,?,_,~,-,£,(,)]/", $pwd))
+        {
+            $score++;
+        }
+
+        return($score<3?true:false);
+
+    }
+
+
+
+    public function changepasswordAction()
+    {
+
+        $this->_redirectIfNotLoggedIn();
+
+
+        $form = new ChangepasswordForm();
+        //$form->get('submit')->setAttribute('value', 'Add');
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $changepassword = new Changepassword();
+            $form->setInputFilter($changepassword->getInputFilter());
+            $form->setData($request->getPost());
+
+            if ($form->isValid()) {
+                $changepassword->exchangeArray($form->getData());
+
+                // verify match between username & password
+                $this->_password0=$form->getData()['password0'];
+                $this->_password1=$form->getData()['password1'];
+                $this->_password2=$form->getData()['password2'];
+
+                // verify existing password
+
+//                $this->_username=$form->getData()['username'];
+
+                if($this->_verifyUsernameAndPassword($_SESSION["username"],$this->_password0)){
+                    echo "password OK";
+                }
+                if($this->_isPasswordValid($this->_password1)
+                    and (
+                    $this->_password1 === $this->_password2
+                    )){
+                    echo ", and new passwords are OK";
+                    $secureHash=new secureHashSha();
+                    $hash=$secureHash->returnHash($this->_password1);
+                    $this->_salt=$hash[0];
+                    $this->_hashedPassword=$hash[1];
+
+                    // save user and return to logged in
+                    $this-> _saveUser($_SESSION["username"],$hash[1],$hash[0],$_SESSION["userid"]);
+
+                    $this->_logInUserAndRedirectToAccount();
+
+                } else {
+                    echo ", but new ones are not strong enough";
+                    $viewModel = new ViewModel();
+                    $viewModel->setTemplate("sar-user/index/changepassword");
+                    return $viewModel->setVariables(array(
+                        "feedback" => "Vennligst angi et sikrere passord",
+                        "passord0" => $this->_password0,
+                        "passord1" => $this->_password1,
+                        "passord2" => $this->_password2,
+                        'form' => $form
+                    ));
+                }
+
+            }
+        }
+
+        return array('form' => $form);
 
     }
 

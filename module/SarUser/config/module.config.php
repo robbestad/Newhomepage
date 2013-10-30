@@ -82,9 +82,9 @@ return array(
                     'changepassword' => array(
                         'type' => 'Literal',
                         'options' => array(
-                            'route' => '/change-password',
+                            'route' => '/changepassword',
                             'defaults' => array(
-                                '__NAMESPACE__' => 'SarUser\Controller',
+                                '__NAMESPACE__' => 'saruser',
                                 'controller' => 'saruser',
                                 'action'     => 'changepassword',
                             ),
@@ -119,10 +119,12 @@ return array(
             'login/index/index'   => __DIR__ . '/../view/sar-user/index/index.twig',
             'nybruker'   => __DIR__ . '/../view/sar-user/index/nybruker.twig',
             'status'   => __DIR__ . '/../view/sar-user/index/index.twig',
+            'sar-user/index/index'   => __DIR__ . '/../view/sar-user/index/index.twig',
             'sar-user/index/account'   => __DIR__ . '/../view/sar-user/index/account.twig',
             'sar-user/index/login'   => __DIR__ . '/../view/sar-user/index/login.twig',
             'sar-user/index/logout'   => __DIR__ . '/../view/sar-user/index/logout.twig',
             'sar-user/index/register'   => __DIR__ . '/../view/sar-user/index/nybruker.twig',
+            'sar-user/index/changepassword'   => __DIR__ . '/../view/sar-user/index/changepassword.twig',
             'register'   => __DIR__ . '/../view/sar-user/index/nybruker.twig',
             'error/index'               => __DIR__ . '/../view/sar-user/error/index.twig',
             'error/404'                 => __DIR__ . '/../view/sar-user/error/index.twig',
