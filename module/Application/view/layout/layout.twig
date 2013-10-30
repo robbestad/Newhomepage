@@ -24,13 +24,27 @@
 
     <link rel="shortcut icon" href="/images/favicon.ico">
 
-    <script src="/js/analytics.js"></script>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
     <script src="/js/html5shiv.js"></script>
     <![endif]-->
 
+    <!-- old gs tracking. Complements universal tracking below -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-45283197-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+   
 </head>
 <body>
 
@@ -162,7 +176,6 @@
             </div>
         </div>
 
-
     {% endblock %}
 
     <!-- Load JS here for greater good =============================-->
@@ -177,5 +190,9 @@
     <script src="/js/jquery.tagsinput.js"></script>
     <script src="/js/jquery.placeholder.js"></script>
     <script src="/js/jquery.stacktable.js"></script>
+
+    <!--// universal tracking -->
+    <script src="/js/analytics.js"></script>
+
 </body>
 </html>
