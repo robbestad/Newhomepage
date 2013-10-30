@@ -44,6 +44,7 @@ return array(
                 'application/index/showcase'  => __DIR__ . '/../view/application/index/showcase.twig',
                 'application/index/contact'  => __DIR__ . '/../view/application/index/contact.twig',
                 'application/index/blog'  => __DIR__ . '/../view/application/index/blog.twig',
+                'application/index/callback'  => __DIR__ . '/../view/application/index/callback.twig',
                 'application/index/error'   => __DIR__ . '/../view/error/index.twig',
                 'layout/layout'             => __DIR__ . '/../view/layout/layout.twig',
                 'error/index'               => __DIR__ . '/../view/error/index.twig',

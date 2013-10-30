@@ -90,6 +90,17 @@ return array(
                             ),
                         ),
                     ),
+                    'forgottenpassword' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/forgottenpassword',
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'saruser',
+                                'controller' => 'saruser',
+                                'action'     => 'forgottenpassword',
+                            ),
+                        ),
+                    ),
                     'changeemail' => array(
                         'type' => 'Literal',
                         'options' => array(
@@ -125,6 +136,7 @@ return array(
             'sar-user/index/logout'   => __DIR__ . '/../view/sar-user/index/logout.twig',
             'sar-user/index/register'   => __DIR__ . '/../view/sar-user/index/nybruker.twig',
             'sar-user/index/changepassword'   => __DIR__ . '/../view/sar-user/index/changepassword.twig',
+            'sar-user/index/forgottenpassword'   => __DIR__ . '/../view/sar-user/index/forgottenpassword.twig',
             'register'   => __DIR__ . '/../view/sar-user/index/nybruker.twig',
             'error/index'               => __DIR__ . '/../view/sar-user/error/index.twig',
             'error/404'                 => __DIR__ . '/../view/sar-user/error/index.twig',
