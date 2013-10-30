@@ -67,6 +67,21 @@ return array(
                 ),
             ),
 
+
+
+            'callback' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/callback',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'callback',
+
+                    ),
+                ),
+            ),
+
+
             'error' => array(
                 'type' => 'literal',
                 'options' => array(

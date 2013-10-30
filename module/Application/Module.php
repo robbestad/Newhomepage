@@ -20,7 +20,6 @@ use Application\View\Helper\FormatMillisecondsToReadableTime;
 use Application\View\Helper\AdHelper;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use ZfcTwig\Twig\Extension\SarTwig as SarTwig;
-use Zend\Session\SessionManager;
 use Zend\Session\Container;
 
 
@@ -62,7 +61,7 @@ class Module implements
     {
         $session = $e->getApplication()
             ->getServiceManager()
-            ->get('Zend\Session\SessionManager');
+            ->get('Sessions');
         $session->start();
 
         $container = new Container('initialized');
@@ -172,7 +171,7 @@ class Module implements
             },
 
 
-         'Zend\Session\SessionManager' => function ($sm) {
+         'Sessions' => function ($sm) {
                  $config = $sm->get('config');
                  if (isset($config['session'])) {
                      $session = $config['session'];
@@ -197,7 +196,7 @@ class Module implements
                          $sessionSaveHandler = $sm->get($session['save_handler']);
                      }
 
-                     $sessionManager = new SessionManager($sessionConfig, $sessionStorage, $sessionSaveHandler);
+                     $sessionManager = new \Zend\Session\SessionManager($sessionConfig, $sessionStorage, $sessionSaveHandler);
 
                      if (isset($session['validator'])) {
                          $chain = $sessionManager->getValidatorChain();

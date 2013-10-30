@@ -201,6 +201,13 @@ class IndexController extends AbstractActionController
     }
 
 
+
+    public function forgottenpasswordAction()
+    {
+        return new ViewModel();
+    }
+
+
     public function registerAction()
     {
         $this->_redirectToAccountIfLoggedIn();

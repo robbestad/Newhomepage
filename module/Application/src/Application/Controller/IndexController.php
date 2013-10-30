@@ -63,6 +63,12 @@ class IndexController extends AbstractActionController
     }
 
 
+    public function callbackAction()
+    {
+        return new ViewModel();
+    }
+
+
     public function showcaseAction()
     {
         return new ViewModel();
