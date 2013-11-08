@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Real Time Chess</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="content-language" content="en">
+    <meta http-equiv="content-language" content="en-gb">
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/alertify.css" />
+    <link rel="stylesheet" href="assets/css/alertify.default.css" id="toggleCSS" />
+    <link rel="stylesheet" href="css/chess.css" />
+    
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="apple-touch-icon-precomposed" href="http://play.svenardo.com/chess/apple-touch-icon.png">
+    <link rel="icon" href="http://play.svenardo.com/chess/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="http://play.svenardo.com/chess/favicon.ico" type="image/x-icon">
+
+    <meta name="keywords" content="chess, touch, arcade, real time">
+    <meta name="description" content="Fun, realtime HTML5 chess game.">
+    <meta property="og:image" content="http://play.svenardo.com/chess/apple-touch-icon.png"/>
+    <meta property="twitter:image" content="http://play.svenardo.com/chess/apple-touch-icon.png"/>
+    <meta property="og:title" content="Real time Chess game" />
+    <meta property="og:type" content="game" />
+    <meta property="og:site_name" content="Svenardo.com" />
+    <meta property="og:url" content="http://play.svenardo.com" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="http://play.svenardo.com" />
+    <meta property="twitter:title" content="Real time Chess" />
+    <link rel="image_src" type="image/png" href="http://play.svenardo.com/chess/apple-touch-icon.png" />
+</head>
+
+<body>
+    <button class="btnStart" onclick="javascript:startGameWhite();">Start as white </button>
+    <button class="btnStartBlack" onclick="javascript:startGameBlack();">Start as black</button>
+    
+    <button class="speedUp" onclick="javascript:saveBoard();">Save Game</button>
+    <button class="speedDown" onclick="javascript:restoreBoard();">Restore Game</button>
+
+    
+    <!--
+    <button class="speedUp" onclick="javascript:speedUp();">Increase speed</button>
+    <button class="speedDown" onclick="javascript:speedDown();">Decrease speed</button>
+-->
+    <div id="loading">Loading...</div>
+    <div id="credits">
+
+
+    </div>
+    
+    <canvas id="canvas" style="width:576px;height:576px">
+        <div id="nocanvas">
+            To play this game you need a browser that supports HTML5, like
+            <a href="http://www.mozilla.com/firefox/">Firefox</a>,
+            <a href="http://www.google.com/chrome">Chrome</a>,
+            <a href="http://www.apple.com/safari/">Safari</a>.
+            <a href="http://www.opera.com/">Opera</a>,
+            <a href="http://ie.microsoft.com">IE 10</a>.
+        </div>
+
+    </canvas>
+    <div id="making-of"><!--Try it on your iOS or Android Device!<br/>Read the <a href="http://blog.svenardo.com">Alpha Force – Making Of</a>--></div>
+    <div id="scoreBox">
+       
+        <form id="scoreForm">
+             <!--
+            <input type="text" id="scoreName" placeholder="Your Name"/>
+            <input type="submit" id="scoreButton" value="Submit Score"/>
+                 -->
+        </form>
+        <div id="scoreResponse"></div>
+   
+        <a href="http://twitter.com/share" onclick="return SuperChess.tweetPopup();" id="tweetLink">
+            <img src="media/tweet-score.png" alt="Tweet Your Score" style="text-align: center"/>
+        </a>
+    </div>
+    <div id="scores">
+        <div style="padding:1em 0">
+            <a href="#" id="scoresBack">&laquo; Back to Title</a>
+        </div>
+        <div style="padding:1em 0" id="scoreMenu">
+            <a id="showScoresDesktop" href="#" class="active">Desktop</a>
+            <a id="showScoresMobile" href="#">Mobile</a>
+        </div>
+        <div id="scoresTable"></div>
+        <div id="scoreNotice"></div>
+    </div>
+   
+    <div id="bottom">
+        <a href="https://twitter.com/intent/tweet?screen_name=svenardocom" class="twitter-mention-button" data-lang="no" data-related="svenardocom">Tweet to @svenardocom</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    </div>
+    <div id="blurb">
+        &nbsp; &nbsp; &nbsp; &nbsp; iPad/iPhone and Microsoft Surface version coming soon ...<br/>
+        <a href="http://play.svenardo.com/jetmanjr/">Jetman Jr</a>&nbsp;|&nbsp;
+        <a href="http://play.svenardo.com/carnage/">8-bit Carnage</a>&nbsp;|&nbsp;
+        <a href="http://www.svenardo.com/">Svenardo.com.com</a>&nbsp;|&nbsp;
+        <a href="http://www.robbestad.com/">Robbestad.com</a>
+        
+    </div>
+
+    <script type="text/javascript" src="game.js?betav5"></script>
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/alertify.min.js"></script>
+    <script type="text/javascript" src="js/activate.js?betav5"></script>
+    <script type="text/javascript" src="js/ga.js"></script>
+    
+</body>
+</html>
