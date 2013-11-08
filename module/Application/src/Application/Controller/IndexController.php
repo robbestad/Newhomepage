@@ -68,6 +68,14 @@ class IndexController extends AbstractActionController
         file_put_contents(__DIR__."/../../../../../../data/".strtotime("NOW").".json",file_get_contents('php://input'));
     }
 
+    public function appsAction()
+    {
+        $viewModel = new ViewModel();
+        $app=$this->params()->fromRoute("appname");
+        $viewModel = new ViewModel();
+        $viewModel->setVariable("appname",ucfirst($app));
+        return $viewModel;
+    }
 
     public function showcaseAction()
     {

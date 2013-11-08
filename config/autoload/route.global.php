@@ -81,6 +81,39 @@ return array(
                 ),
             ),
 
+            'apps' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/apps',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'apps',
+
+                    ),
+                ),
+                'may_terminate' => false,
+                'child_routes' => array(
+                    'view' => array(
+                        'type' => 'segment',
+                        'may_terminate' => true,
+                        'options' => array(
+                            'route' => '/:appname',
+                            'constraints' => array(
+                                'articleid' => '[a-zA-Z0-9_-]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Application\Controller\Index',
+                                'action' => 'apps',
+                                'code' => 0,
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+
+
+
+
 
             'error' => array(
                 'type' => 'literal',
