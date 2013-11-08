@@ -77,6 +77,15 @@ class IndexController extends AbstractActionController
         return $viewModel;
     }
 
+    public function gamesAction()
+    {
+        $viewModel = new ViewModel();
+        $app=$this->params()->fromRoute("appname");
+        $viewModel = new ViewModel();
+        $viewModel->setVariable("template","application/content/$app.twig");
+        return $viewModel;
+    }
+
     public function showcaseAction()
     {
         return new ViewModel();

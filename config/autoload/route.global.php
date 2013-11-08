@@ -112,6 +112,37 @@ return array(
             ),
 
 
+            'games' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/games',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'games',
+
+                    ),
+                ),
+                'may_terminate' => false,
+                'child_routes' => array(
+                    'view' => array(
+                        'type' => 'segment',
+                        'may_terminate' => true,
+                        'options' => array(
+                            'route' => '/:appname',
+                            'constraints' => array(
+                                'articleid' => '[a-zA-Z0-9_-]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Application\Controller\Index',
+                                'action' => 'games',
+                                'code' => 0,
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+
+
 
 
 
