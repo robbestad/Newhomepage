@@ -73,6 +73,20 @@
                     {% endif %}
                 {% endblock %}
 
+
+                    <li class="hidden-desktop visible-sm">
+                        <a href="/">
+                            Tilbake
+                        </a>
+                    </li>
+
+                    <li class="visible-desktop hidden-sm">
+                        <a href="/games/realtimechess">
+                            Sanntidssjakk
+                        </a>
+                    </li>
+
+
                     {% if session.loggedIn is defined and session.loggedIn == true %}
                         <li>
                             <a href="/user/logout">
@@ -83,7 +97,9 @@
 
                     {% else %}
 
-                    <li>
+
+
+                        <li>
                         <a href="/user/login">
                             Logg inn
                         </a>
@@ -91,7 +107,7 @@
                     {% endif %}
 
 
-                    <li>
+                    <li class=" visible-sm">
                         <a href="/contact">
                             Kontakt
                         </a>
