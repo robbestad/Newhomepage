@@ -1,0 +1,26 @@
+/*!
+ * Bootstrap v3.0.2
+ *
+ * Copyright 2013 Twitter, Inc
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Designed and built with all the love in the world @twitter by @mdo and @fat.
+ */
+
+.btn-large{
+    font: 32px/64px 'Lato',sans-serif !important;
+
+}
+
+@media (max-width: 979px){
+.navbar .btn-navbar {
+    display: block!important;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    right: 30px;
+    top: -3px;
+    background: url(/images/menu_btn.png) no-repeat 0 0;
+}
+}
