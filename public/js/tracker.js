@@ -536,12 +536,12 @@ userId=Math.abs((browser+os+navigator.userAgent).hashCode())+''+configVars.initT
 // optional - sett localstorage
     localStorage.setItem(name_userid, userId);
 
-// optional - sett cookie
+    // optional - sett cookie
     setCookie(name_userid, userId, 365);
-    console.log("setting userid");
+    //console.log("setting userid");
 }
 
-console.log(userId);
+//console.log(userId);
 
 
 
