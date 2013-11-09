@@ -8,9 +8,11 @@
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
 
+@media (min-width: 979px){
 .btn-large{
     font: 32px/64px 'Lato',sans-serif !important;
 
+}
 }
 
 @media (max-width: 979px){
@@ -24,3 +26,4 @@
     background: url(/images/menu_btn.png) no-repeat 0 0;
 }
 }
+
