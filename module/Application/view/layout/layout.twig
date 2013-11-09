@@ -80,13 +80,6 @@
                         </a>
                     </li>
 
-                    <li class="visible-desktop hidden-sm">
-                        <a href="/games/realtimechess">
-                            Sanntidssjakk
-                        </a>
-                    </li>
-
-
                     {% if session.loggedIn is defined and session.loggedIn == true %}
                         <li>
                             <a href="/user/logout">
@@ -99,27 +92,34 @@
 
 
 
-                        <li>
+                        <li class="{% if slug == "user/login" %}active{% endif %}">
                         <a href="/user/login">
                             Logg inn
                         </a>
                     </li>
                     {% endif %}
 
+                    <li class="visible-desktop hidden-sm {% if slug == "games/realtimechess" %}active{% endif %}">
+                        <a href="/games/realtimechess">
+                            Sanntidssjakk
+                        </a>
+                    </li>
 
-                    <li class=" visible-sm">
+
+
+                    <li class=" visible-sm {% if slug == "contact" %}active{% endif %}">
                         <a href="/contact">
                             Kontakt
                         </a>
                     </li>
-                    <li>
+                    <li class="{% if slug == "resume" %}active{% endif %}">
                         <a href="/resume">
                             CV
                         </a>
                     </li>
 
 
-                    <li>
+                    <li class="{% if slug == "showcase" %}active{% endif %}">
                         <a href="/showcase">
                             Showcase
                         </a>
