@@ -9,11 +9,21 @@
                 <div class="row">
                     <div class="span7">
                         <h1 style="font-size:28px;">Velkommen!</h1>
-                        <p>Jeg er Sven Anders Robbestad. Jeg er far, samboer, og PHP-utvikler. Jeg utvikler og bidrar til en rekke åpen kildekode-prosjekter.
-                            Spesielle interesseområder er: Zend Framework 2, HTML5/Javascript, Python, CasperJS.
+                    <p>
+                    <div id="index_text" class="{% if session.loggedIn is defined and session.loggedIn == true %}editable{% endif %}">
+                           {% if index_text is defined %} {{ index_text | raw}}{% else %}
+                           Jeg er Sven Anders Robbestad. Jeg er far, samboer, og PHP-utvikler. Jeg utvikler og bidrar til en rekke åpen kildekode-prosjekter.
+                           Spesielle interesseområder er: Zend Framework 2, HTML5/Javascript, Python, CasperJS.
+                            {% endif %}
+                    </div>
+                    </p>
+
+                        <p>
+                            Ta gjerne <a href="/contact">kontakt</a>.
                         </p>
-                        <p> Ta gjerne <a href="/contact">kontakt</a>.
-                        </p></div>
+
+                </div>
+
                     <div class="offset1 span3">
                         <img src="images/profilbilde.jpg" class="img-rounded">
                         <!--

@@ -144,6 +144,35 @@ return array(
 
 
 
+            'ajax' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/ajax',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'ajax',
+
+                    ),
+                ),
+                'may_terminate' => false,
+                'child_routes' => array(
+                    'view' => array(
+                        'type' => 'literal',
+                        'may_terminate' => true,
+                        'options' => array(
+                            'route' => '/save',
+                            'defaults' => array(
+                                'controller' => 'Application\Controller\Index',
+                                'action' => 'ajaxsave',
+                                'code' => 0,
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+
+
+
 
 
             'error' => array(

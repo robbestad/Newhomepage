@@ -10,7 +10,9 @@
 namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController,
     Zend\View\Model\ViewModel,
-    Application\Model\Application;
+    Application\Model\PageData,
+    Application\Model\Application,
+    Zend\Http\Request;
 //    Application\Document\User;
 
 
@@ -18,16 +20,21 @@ class IndexController extends AbstractActionController
 {
 
 
-    protected $documentManager;
-
-    public function setDocumentManager(DocumentManager $documentManager)
+    public function getPageData()
     {
-        $this->documentManager = $documentManager;
-        return $this;
-    }
+        $sm = $this->getServiceLocator();
+        $pageData=$sm->get('Application\Model\PageData');
+        $footer_text=$pageData->getContentById("footer_text");
+        $footer_address=$pageData->getContentById("footer_address");
+        $index_text=$pageData->getContentById("index_text");
 
-    public function myVal(){
-        return "10";
+        return(
+            array(
+                "footer_text" => $footer_text["text"],
+                "footer_address" => $footer_address["text"],
+                "index_text" => $index_text["text"]
+            )
+        );
     }
 
 
@@ -38,28 +45,15 @@ class IndexController extends AbstractActionController
 
     public function indexAction()
     {
-        //Throw new \Exception("feil?!");
-        //$dm = $this->getServiceLocator()->get('doctrine.documentmanager.odm_default');
-        /* $dm = $this->getLocator()->get('mongo_dm');
-
-         $user = new User();
-         $user->setName('Bulat S.');
-
-         $dm->persist($user);
-         $dm->flush();
-        */
-
-        $id="10";
-
         $viewModel = new ViewModel();
-        return $viewModel->setVariables(array(
-            "a" => "b"
-        ));
+        return $viewModel->setVariables($this->getPageData());
     }
 
     public function resumeAction()
     {
-        return new ViewModel();
+        $viewModel = new ViewModel();
+        return $viewModel->setVariables($this->getPageData());
+
     }
 
 
@@ -70,38 +64,58 @@ class IndexController extends AbstractActionController
 
     public function appsAction()
     {
-        $viewModel = new ViewModel();
+
         $app=$this->params()->fromRoute("appname");
         $viewModel = new ViewModel();
-        $viewModel->setVariable("appname",ucfirst($app));
+        $array=array_merge($this->getPageData(),array("appname",ucfirst($app),"template"=>"application/content/$app.twig"));
+        $viewModel->setVariables($array);
         return $viewModel;
     }
 
     public function gamesAction()
     {
-        $viewModel = new ViewModel();
         $app=$this->params()->fromRoute("appname");
         $viewModel = new ViewModel();
-        $viewModel->setVariable("template","application/content/$app.twig");
+        $array=array_merge($this->getPageData(),array("appname",ucfirst($app),"template"=>"application/content/$app.twig"));
+        $viewModel->setVariables($array);
         return $viewModel;
     }
 
     public function showcaseAction()
     {
-        return new ViewModel();
+        $viewModel = new ViewModel();
+        return $viewModel->setVariables($this->getPageData());
     }
 
     public function contactAction()
     {
-        return new ViewModel();
+        $viewModel = new ViewModel();
+        return $viewModel->setVariables($this->getPageData());
     }
 
     public function blogAction()
     {
-        return new ViewModel();
+        $viewModel = new ViewModel();
+        return $viewModel->setVariables($this->getPageData());
     }
 
+    public function errorAction()
+    {
+        $viewModel = new ViewModel();
+        return $viewModel->setVariables($this->getPageData());
+    }
 
+    public function ajaxsaveAction()
+    {
+        $id = $this->getRequest()->getPost("id");
+        $text = nl2br($this->getRequest()->getPost("text"));
 
+        $sm = $this->getServiceLocator();
+        $pageData=$sm->get('Application\Model\PageData');
+        $pageData->updateContent($id,$text);
 
+        $viewModel = new ViewModel();
+        $viewModel->setTemplate("empty");
+        return $viewModel;
+    }
 }

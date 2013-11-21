@@ -18,6 +18,9 @@ use Application\View\Helper\GetRole;
 use Application\View\Helper\Dump;
 use Application\View\Helper\FormatMillisecondsToReadableTime;
 use Application\View\Helper\AdHelper;
+use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\TableGateway\TableGateway;
+use Application\Model\PageData;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use ZfcTwig\Twig\Extension\SarTwig as SarTwig;
 use Zend\Session\Container;
@@ -169,7 +172,16 @@ class Module implements
             'SarTwig' => function($sm) {
                         return new SarTwig($sm->get('ZfcTwigRenderer'));
             },
-
+            'Application\Model\PageData' =>  function($sm) {
+                    $tableGateway = $sm->get('PageDataGateway');
+                    $model = new PageData($tableGateway);
+                    return $model;
+                },
+            'PageDataGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    return new TableGateway('content', $dbAdapter, null, $resultSetPrototype);
+                },
 
          'Sessions' => function ($sm) {
                  $config = $sm->get('config');

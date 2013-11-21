@@ -39,6 +39,7 @@ return array(
         'not_found_template'        => 'error/404',
         'exception_template'        => 'error/index',
         'template_map' => array(
+                'application/index/ajaxsave'   => __DIR__ . '/../view/application/ajax/save.twig',
                 'application/index/index'   => __DIR__ . '/../view/application/index/index.twig',
                 'application/index/resume'  => __DIR__ . '/../view/application/index/resume.twig',
                 'application/index/showcase'  => __DIR__ . '/../view/application/index/showcase.twig',
@@ -49,6 +50,7 @@ return array(
                 'application/index/games'  => __DIR__ . '/../view/application/content/apps.twig',
                 'application/index/error'   => __DIR__ . '/../view/error/index.twig',
                 'layout/layout'             => __DIR__ . '/../view/layout/layout.twig',
+                'empty'             => __DIR__ . '/../view/layout/empty.twig',
                 'error/index'               => __DIR__ . '/../view/error/index.twig',
                 'error/404'                 => __DIR__ . '/../view/error/404.twig',
         ),
