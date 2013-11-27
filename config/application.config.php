@@ -18,6 +18,7 @@ return array(
         //'DoctrineMongoODMModule',
         //'Users',
         'SarUser',
+        'SarBlog',
         'News',
         ),
     'module_listener_options' => array(

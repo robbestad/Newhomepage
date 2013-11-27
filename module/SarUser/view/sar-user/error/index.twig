@@ -2,10 +2,13 @@
 
 {% block pagecontent %}
 
-    <div class="container span12">
+    <div class="container-fluid span12">
         <h1>En feil har oppstått</h1>
 
-        <pre class="prettyprint">{{ _context.exception }}</pre>
+        <pre class="prettyprint">
+
+        {{ dump(_context) }}
+        </pre>
     </div>
 
 {% endblock %}

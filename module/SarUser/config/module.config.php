@@ -63,6 +63,7 @@ return array(
                         'options' => array(
                             'route' => '/logout',
                             'defaults' => array(
+                                '__NAMESPACE__' => 'saruser',
                                 'controller' => 'saruser',
                                 'action'     => 'logout',
                             ),

@@ -1,0 +1,19 @@
+{% extends "layout/layout.twig" %}
+
+
+{% block pagecontent %}
+        {% for post in blogposts %}
+
+            <div class="container wrapper">
+
+            <h1 class="well"> {{ post.Title }} </h1>
+              {{ post.Date_added }}<br/>
+            {{ post.Tags }}
+            {{ post.Content|raw }}
+            </div>
+        {% endfor %}
+
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}
