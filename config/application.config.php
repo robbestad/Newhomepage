@@ -7,6 +7,7 @@
  */
 return array(
     'modules' => array(
+        'SarMarkdown',
         'Application',
         'ZfcBase',
         'ZfcTwig',
@@ -19,7 +20,7 @@ return array(
         //'Users',
         'SarUser',
         'SarBlog',
-        'News',
+        'TestModule'
         ),
     'module_listener_options' => array(
         'config_glob_paths' => array('config/autoload/{,*.}{global,local}.php'),

@@ -12,7 +12,10 @@ use Zend\Mvc\Controller\AbstractActionController,
     Zend\View\Model\ViewModel,
     Application\Model\PageData,
     Application\Model\Application,
-    Zend\Http\Request;
+    Zend\Http\Request,
+    SarMarkdown\Markdown\Markdown,
+    TestModule\Module as TestModule;
+
 //    Application\Document\User;
 
 
@@ -46,9 +49,15 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {
 
+       $Markdown=new Markdown();
 
+
+$string="#Velkommen
+_italics_ **bold**";
 
         $viewModel = new ViewModel();
+        $viewModel->setVariable("comments",$Markdown($string));
+//        return $viewModel;//->setVariables($this->getPageData());
         return $viewModel->setVariables($this->getPageData());
     }
 
