@@ -49,15 +49,15 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {
 
-       $Markdown=new Markdown();
+        /*
+               $Markdown=new Markdown();
 
-
-$string="#Velkommen
-_italics_ **bold**";
-
+        $string="#Velkommen
+        _italics_ **bold**";
+        */
         $viewModel = new ViewModel();
-        $viewModel->setVariable("comments",$Markdown($string));
-//        return $viewModel;//->setVariables($this->getPageData());
+//        $viewModel->setVariable("comments",$Markdown($string));
+ //       return $viewModel;//->setVariables($this->getPageData());
         return $viewModel->setVariables($this->getPageData());
     }
 
@@ -65,7 +65,6 @@ _italics_ **bold**";
     {
         $viewModel = new ViewModel();
         return $viewModel->setVariables($this->getPageData());
-
     }
 
 
@@ -76,7 +75,6 @@ _italics_ **bold**";
 
     public function appsAction()
     {
-
         $app=$this->params()->fromRoute("appname");
         $viewModel = new ViewModel();
         $array=array_merge($this->getPageData(),array("appname",ucfirst($app),"template"=>"application/content/$app.twig"));
