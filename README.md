@@ -1,6 +1,6 @@
-#Recommender SYS
+# My ZF2 home page
 
-#Introduction
-Recommender System for SA Robbestad
-
-Built using ZF2 MVC layer
+### Install
+* Clone
+* Run _composer.phar install_
+* Copy **ZF2 misc/SarTwig.php** to **vendor/zf-commons/zfc-twig/src/ZfcTwig/Twig/Extension/**
