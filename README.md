@@ -3,4 +3,4 @@
 ### Install
 * Clone
 * Run _composer.phar install_
-* Copy ZF2 Twig extension to proper path
+* Copy **ZF2 misc/SarTwig.php** to **vendor/zf-commons/zfc-twig/src/ZfcTwig/Twig/Extension/**
